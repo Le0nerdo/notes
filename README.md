@@ -17,6 +17,8 @@ If I have enough time I will test to make a variation for games.
 ### Development
 #### Database:
 ```sh
+$ cd db
+$ docker-compose up -d
 ```
 #### Backend:
 ```sh
