@@ -4,3 +4,4 @@
 |-----------|-------|-------
 |9.1.-10.1. |3      |testailin/harjoittelin postgreSQL:n käyttöä
 |10.1.      |4      |testailin/harjoittelin postgreSQL:n käyttöä 2
+|11.1		|2		|testing folder structure for backend
