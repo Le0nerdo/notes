@@ -1,15 +1,11 @@
-const { gql } = require('apollo-server-express')
+const { query } = require('./query')
+const { mutation } = require('./mutation')
+const { note } = require('./types')
 
-const typeDefs = gql`
-	type Query {
-		hello: String,
-		notes: [Note!]!
-	}
-
-	type Note {
-		content: String,
-		owner: Int
-	}
-`
+const typeDefs = [
+	query,
+	mutation,
+	note
+]
 
 module.exports = { typeDefs }

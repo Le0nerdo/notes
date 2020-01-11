@@ -1,13 +1,12 @@
-const { db } = require('../data')
+const { userResolvers } = require('./userResolvers')
+const { noteResolvers } = require('./noteResolvers')
 
-const resolvers = {
-	Query: {
-		hello: () => 'Hello world!',
-		notes: async () => {
-			const { rows } = await db.query('SELECT * FROM note')
-			return rows
-		}
-	}
-}
+const tester = { Query: { hello: () => 'Hello World' } }
+
+const resolvers = [
+	tester,
+	noteResolvers,
+	userResolvers
+]
 
 module.exports = { resolvers }
