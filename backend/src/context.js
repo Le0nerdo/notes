@@ -10,7 +10,7 @@ const context = async ({ req }) => {
 		const decodedtoken = jwt.verify(auth.substring(7), SECRET)
 		const { rows } = await db.query(
 			'SELECT * FROM account WHERE id=$1',
-			[decodedtoken.id]
+			[decodedtoken.id],
 		)
 		return { user: rows[0] }
 	}

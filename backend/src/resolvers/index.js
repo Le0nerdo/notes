@@ -6,7 +6,7 @@ const tester = { Query: { hello: () => 'Hello World' } }
 const resolvers = [
 	tester,
 	noteResolvers,
-	userResolvers
+	userResolvers,
 ]
 
 module.exports = { resolvers }

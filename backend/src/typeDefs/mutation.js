@@ -2,12 +2,20 @@ const { gql } = require('apollo-server-express')
 
 const mutation = gql`
 	type Mutation {
+		createUser(
+			username: String!
+			email: String!
+			password: String!
+		): Token
 		login(
 			username: String!
 			password: String!
-		): String
+		): Token
 		createNote(
 			content: String!
+		): Note
+		deleteNote(
+			id: Int!
 		): Note
 	}
 `

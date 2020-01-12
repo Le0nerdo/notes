@@ -6,15 +6,18 @@
   "scripts": {
     "start": "node src",
     "watch": "nodemon src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"createTables": "node createTables.js"
   },
   "author": "Leo Becker",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^6.8.0",
     "nodemon": "^2.0.2"
   },
   "dependencies": {
     "apollo-server-express": "^2.9.16",
+    "bcrypt": "^3.0.7",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

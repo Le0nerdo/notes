@@ -6,3 +6,4 @@
 |10.1.      |4      |testailin/harjoittelin postgreSQL:n käyttöä 2
 |11.1		|2		|testing folder structure for backend
 |11.1		|2		|testing/making login on backend
+|12.1		|3		|finished minimal note and user/login mutations

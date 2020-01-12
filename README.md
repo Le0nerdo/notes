@@ -72,3 +72,4 @@ User----+School-+ToLearn
 ## Useful links
 [postgres docker](https://hub.docker.com/_/postgres)  
 [node-postgres documentation](https://node-postgres.com/)  
+[postgresql data types](https://www.postgresql.org/docs/11/datatype.html)
