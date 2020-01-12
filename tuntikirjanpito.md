@@ -7,3 +7,4 @@
 |11.1		|2		|testing folder structure for backend
 |11.1		|2		|testing/making login on backend
 |12.1		|3		|finished minimal note and user/login mutations
+|12.1-13.1	|4		|Created minimal frontend

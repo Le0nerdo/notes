@@ -35,7 +35,7 @@ const noteResolvers = {
 				WHERE id=$1`,
 				[args.id],
 			)
-			const permission = note.rows[0].owner === context.id
+			const permission = note.rows[0].owner === context.user.id
 			if (!permission) throw new AuthenticationError('no permission')
 
 			const { rows } = await db.query(
