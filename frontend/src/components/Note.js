@@ -15,7 +15,13 @@ const DELETE_NOTE = gql`
 	}
 `
 
-const Note = ({ content, id }) => {
+const style = {
+	padding: '0.3em',
+	border: 'solid',
+	width: '50%',
+}
+
+const Note = ({ content, id, header, subject, owner }) => {
 	const [deleteNote] = useMutation(DELETE_NOTE, {
 		refetchQueries: [{ query: NOTES }],
 	})
@@ -25,9 +31,13 @@ const Note = ({ content, id }) => {
 	}
 
 	return (
-		<li>
-			{content} {' '}
-			<button onClick={removeNote}>DELETE</button>
+		<li style={{ margin: '1em' }}>
+			<b>{header}</b>{subject ? ` (${subject})` : ''}
+			<div style={style}>
+				<p>{content}</p>
+				{`Created by: ${owner} `}
+				<button onClick={removeNote} style={{ float: 'right' }}>DELETE</button>
+			</div>
 		</li>
 	)
 }

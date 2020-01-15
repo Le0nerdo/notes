@@ -1,3 +1,3 @@
 # ToDo
 
-Minimal frontend
+Restructure database

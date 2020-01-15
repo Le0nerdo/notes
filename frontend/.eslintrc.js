@@ -56,6 +56,10 @@ module.exports = {
 			'error',
 			'always-multiline'
 		],
+		'linebreak-style': [
+			'error',
+			'unix'
+		],
 		'react/prop-types': 0,
 		'react-hooks/rules-of-hooks': 'error'
 	}

@@ -5,8 +5,9 @@ import { NOTES } from './NoteList'
 import { gql } from 'apollo-boost'
 
 const CREATE_NOTE = gql`
-	mutation createNote($content: String!) {
+	mutation createNote($header: String!, $content: String!) {
 		createNote(
+			header: $header
 			content: $content
 		) {
 			content
@@ -16,6 +17,7 @@ const CREATE_NOTE = gql`
 `
 
 const CreateNote = () => {
+	const [header, setHeader] = useState('')
 	const [content, setContent] = useState('')
 	const [createNote] = useMutation(CREATE_NOTE, {
 		refetchQueries: [{ query: NOTES }],
@@ -28,10 +30,12 @@ const CreateNote = () => {
 
 		await createNote({
 			variables: {
+				header,
 				content,
 			},
 		})
 
+		setHeader('')
 		setContent('')
 	}
 
@@ -39,6 +43,13 @@ const CreateNote = () => {
 		<div>
 			<h2>Create new Note</h2>
 			<form onSubmit={handleSubmit}>
+				<div>
+					Header:<br />
+					<input
+						value={header}
+						onChange={({ target }) => setHeader(target.value)}
+					/>
+				</div>
 				<div>
 					Content:<br />
 					<input

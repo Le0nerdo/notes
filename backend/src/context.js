@@ -9,7 +9,7 @@ const context = async ({ req }) => {
 	if (auth && auth.startsWith('bearer ')) {
 		const decodedtoken = jwt.verify(auth.substring(7), SECRET)
 		const { rows } = await db.query(
-			'SELECT * FROM account WHERE id=$1',
+			'SELECT id, username, email FROM account WHERE id=$1',
 			[decodedtoken.id],
 		)
 		return { user: rows[0] }

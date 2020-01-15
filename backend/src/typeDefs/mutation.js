@@ -12,6 +12,8 @@ const mutation = gql`
 			password: String!
 		): Token
 		createNote(
+			subject: String!
+			header: String!
 			content: String!
 		): Note
 		deleteNote(
