@@ -11,14 +11,23 @@ const mutation = gql`
 			username: String!
 			password: String!
 		): Token
-		createNote(
-			subject: String!
+
+		createSubject(
+			name: String!
+		): Subject
+		createCourse(
+			subjects: [Int!]!
+			name: String!
+		): [Subject]
+
+		createSchoolNote(
 			header: String!
 			content: String!
-		): Note
-		deleteNote(
+			courses: [Int!]!
+		): SchoolNote
+		deleteSchoolNote(
 			id: Int!
-		): Note
+		): SchoolNote
 	}
 `
 

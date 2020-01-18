@@ -1,8 +1,8 @@
 const { userResolvers } = require('./userResolvers')
-const { noteResolvers } = require('./noteResolvers')
+const { schoolNoteResolvers } = require('./schoolNoteResolvers')
 
 const resolvers = [
-	noteResolvers,
+	schoolNoteResolvers,
 	userResolvers,
 ]
 

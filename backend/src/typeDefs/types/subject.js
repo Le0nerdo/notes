@@ -4,6 +4,7 @@ const subject = gql`
 	type Subject {
 		id: Int!
 		name: String!
+		courses: [Course!]!
 	}
 `
 

@@ -38,7 +38,6 @@ ON subject(owner_id)
 CREATE TABLE course(
 	id BIGSERIAL PRIMARY KEY,
 	owner_id BIGINT NOT NULL,
-	subject_id BIGINT NOT NULL,
 	name VARCHAR(63) NOT NULL,
 	FOREIGN KEY(owner_id) REFERENCES account(id) ON DELETE CASCADE
 )
@@ -48,16 +47,18 @@ ON course(owner_id)
 ```
 
 ## course_subject
-|course_id	|subject_id
-|:---------:|:---------:|
-|BIGINT		|BIGINT
+|course_id	|subject_id	|owner_id
+|:---------:|:---------:|:---------:|
+|BIGINT		|BIGINT		|BIGINT
 ```sql
 CREATE TABLE course_subject(
 	course_id  BIGINT,
 	subject_id BIGINT,
+	owner_id BIGINT,
 	PRIMARY KEY(course_id, subject_id),
 	FOREIGN KEY(course_id) REFERENCES course(id) ON DELETE CASCADE,
-	FOREIGN KEY(subject_id) REFERENCES subject(id) ON DELETE RESTRICT
+	FOREIGN KEY(subject_id) REFERENCES subject(id) ON DELETE RESTRICT,
+	FOREIGN KEY(owner_id) REFERENCES account(id) ON DELETE CASCADE
 )
 ```
 
@@ -79,16 +80,18 @@ ON school_note(owner_id)
 ```
 
 ## school_note_course
-|note_id	|course_id
-|:---------:|:---------:|
-|BIGINT		|BIGINT
+|note_id	|course_id	|owner_id	|
+|:---------:|:---------:|:---------:|
+|BIGINT		|BIGINT		|BIGINT		|
 ```sql
 CREATE TABLE school_note_course(
 	note_id BIGINT,
 	course_id BIGINT,
+	owner_id BIGINT,
 	PRIMARY KEY(note_id, course_id),
 	FOREIGN KEY(note_id) REFERENCES school_note(id) ON DELETE CASCADE,
-	FOREIGN KEY(course_id) REFERENCES course(id) ON DELETE RESTRICT
+	FOREIGN KEY(course_id) REFERENCES course(id) ON DELETE RESTRICT,
+	FOREIGN KEY(owner_id) REFERENCES account(id) ON DELETE CASCADE
 )
 ```
 

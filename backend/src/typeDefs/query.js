@@ -2,7 +2,8 @@ const { gql } = require('apollo-server-express')
 
 const query = gql`
 	type Query {
-		notes: [Note!]!
+		schoolNotes: [SchoolNote!]!
+		me: Me!
 	}
 `
 

@@ -4,8 +4,7 @@ const schoolNote = gql`
 	type SchoolNote {
 		id: Int!
 		owner: String!
-		subject: Subject!
-		course: Course!
+		subjects: [Subject!]!
 		header: String!
 		contetn: String!
 	}

@@ -1,9 +1,11 @@
 const { AuthenticationError } = require('apollo-server-express')
-const { db } = require('../data')
+const { db } = require('../../data')
+const { createSubject } = require('./createSubject')
+const { createCourse } = require('./createCourse')
 
-const noteResolvers = {
+const schoolNoteResolvers = {
 	Query: {
-		notes: async (root, args, context) => {
+		schoolNotes: async (root, args, context) => {
 			if (!context.user) throw new AuthenticationError('not authenticated')
 			const { rows } = await db.query(
 				`SELECT n.id, a.username as owner, s.subject_name subject, n.header, n.content
@@ -18,7 +20,7 @@ const noteResolvers = {
 		},
 	},
 	Mutation: {
-		createNote: async (root, args, context) => {
+		createSchoolNote: async (root, args, context) => {
 			if (!context.user) throw new AuthenticationError('not authenticated')
 
 			const { rows } = await db.query(
@@ -38,7 +40,7 @@ const noteResolvers = {
 
 			return rows[0]
 		},
-		deleteNote: async (root, args, context) => {
+		deleteSchoolNote: async (root, args, context) => {
 			if (!context.user) throw new AuthenticationError('not authenticated')
 			const note = await db.query(
 				`SELECT owner_id
@@ -60,7 +62,9 @@ const noteResolvers = {
 
 			return rows[0]
 		},
+		createSubject,
+		createCourse,
 	},
 }
 
-module.exports = { noteResolvers }
+module.exports = { schoolNoteResolvers }
