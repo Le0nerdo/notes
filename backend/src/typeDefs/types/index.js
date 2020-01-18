@@ -1,7 +1,11 @@
-const { note } = require('./note')
+const { schoolNote } = require('./schoolNote')
 const { token } = require('./token')
+const { subject } = require('./subject')
+const { course } = require('./course')
 
 module.exports = {
-	note,
+	schoolNote,
 	token,
+	subject,
+	course,
 }

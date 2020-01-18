@@ -72,4 +72,5 @@ User----+School-+ToLearn
 ## Useful links
 [postgres docker](https://hub.docker.com/_/postgres)  
 [node-postgres documentation](https://node-postgres.com/)  
-[postgresql data types](https://www.postgresql.org/docs/11/datatype.html)
+[postgresql data types](https://www.postgresql.org/docs/11/datatype.html)  
+[postgresql keywords](https://www.postgresql.org/docs/8.1/sql-keywords-appendix.html)
