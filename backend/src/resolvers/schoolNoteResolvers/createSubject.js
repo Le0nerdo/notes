@@ -9,9 +9,9 @@ const createSubject = async (root, args, context) => {
 			VALUES($1, $2)
 			RETURNING id, name
 		), cou AS (
-			SELECT id, name
-			FROM course
-			WHERE name='' AND owner_id=$1
+			INSERT INTO course(owner_id, name)
+			VALUES($1, '')
+			RETURNING id, name
 		)
 		INSERT INTO course_subject(course_id, subject_id, owner_id)
 		VALUES((SELECT id FROM cou), (SELECT id FROM sub), $1)

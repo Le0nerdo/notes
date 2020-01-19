@@ -3,6 +3,7 @@ const { token } = require('./token')
 const { subject } = require('./subject')
 const { course } = require('./course')
 const { me } = require('./me')
+const { confirmation } = require('./confirmation')
 
 module.exports = {
 	schoolNote,
@@ -10,4 +11,5 @@ module.exports = {
 	subject,
 	course,
 	me,
+	confirmation,
 }

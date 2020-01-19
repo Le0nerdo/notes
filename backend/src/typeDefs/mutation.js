@@ -27,7 +27,7 @@ const mutation = gql`
 		): SchoolNote
 		deleteSchoolNote(
 			id: Int!
-		): SchoolNote
+		): Confirmation
 	}
 `
 

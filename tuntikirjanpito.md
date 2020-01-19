@@ -11,3 +11,4 @@
 |15.1		|9		|Restructuring database + making bad code
 |17.1-18.1	|5		|Restructured database
 |18.1		|5		|updated typeDefs and made some resolvers
+|19.1		|3		|made some resolvers

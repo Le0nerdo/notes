@@ -60,6 +60,9 @@ CREATE TABLE course_subject(
 	FOREIGN KEY(subject_id) REFERENCES subject(id) ON DELETE RESTRICT,
 	FOREIGN KEY(owner_id) REFERENCES account(id) ON DELETE CASCADE
 )
+
+CREATE INDEX course_subject_owner_id_index
+ON course_subject(owner_id)
 ```
 
 ## school_note
