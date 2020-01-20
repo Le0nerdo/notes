@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useApolloClient } from '@apollo/react-hooks'
 
 import { gql } from 'apollo-boost'
 
@@ -9,7 +9,18 @@ const LOGIN = gql`
 			username: $username,
 			password: $password
 		) {
-			token
+			token,
+			me {
+				username,
+				subjects {
+					id,
+					name,
+					courses {
+						id,
+						name
+					}
+				}
+			}
 		}
 	}
 `
@@ -22,16 +33,28 @@ const CREATE_USER = gql`
 			password: $password
 		) {
 			token
+			me {
+				username,
+				subjects {
+					id,
+					name,
+					courses {
+						id,
+						name
+					}
+				}
+			}
 		}
 	}
 `
 
-const Login = ({ token, setToken, logout }) => {
+const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [email, setEmail] = useState('')
 	const [login] = useMutation(LOGIN)
 	const [createUser] = useMutation(CREATE_USER)
+	const client = useApolloClient()
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
@@ -48,7 +71,7 @@ const Login = ({ token, setToken, logout }) => {
 			setUsername('')
 			setEmail('')
 			setPassword('')
-			setToken(newToken)
+			client.writeData({ data: { isLoggedIn: true } })
 		}
 	}
 
@@ -67,11 +90,9 @@ const Login = ({ token, setToken, logout }) => {
 			setUsername('')
 			setEmail('')
 			setPassword('')
-			setToken(newToken)
+			client.writeData({ data: { isLoggedIn: true } })
 		}
 	}
-
-	if (token) return <button onClick={logout}>Logout</button>
 
 	return (
 		<div>

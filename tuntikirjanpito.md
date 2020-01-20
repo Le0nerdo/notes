@@ -12,3 +12,4 @@
 |17.1-18.1	|5		|Restructured database
 |18.1		|5		|updated typeDefs and made some resolvers
 |19.1		|3		|made some resolvers
+|20.1-21.1	|6		|updating frontend
