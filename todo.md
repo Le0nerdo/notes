@@ -1,8 +1,5 @@
 # ToDo
 
-## make minimal up to date frontend  
-fix schoolNote query cache problem
-
 # merge to main and start new branch
 tolearn notes
 # merge to main and start new branch

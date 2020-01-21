@@ -14,20 +14,18 @@ export const SCHOOL_NOTES = gql`
 			owner,
 			subjects {
 				id,
-				name,
-				courses{
-					id,
-					name
-				}
+				name
+			},
+			courses {
+				id,
+				name
 			}
 		}
 	}
 `
 
 const Notes = () => {
-	const { loading, data } = useQuery(SCHOOL_NOTES, {
-		fetchPolicy: 'no-cache',
-	})
+	const { loading, data } = useQuery(SCHOOL_NOTES)
 
 	return (
 		<div style={{ display: 'flex' }}>

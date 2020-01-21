@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const SelectCourse = ({ courses, selectedCourses, setSelectedCourses }) => {
 	const [open, setOpen] = useState(false)
 	const [selected, setSelected] = useState([])
+
+	useEffect(() => {
+		if (selectedCourses.length < 1) {
+			setSelected([])
+		}
+	}, [selectedCourses])
 
 	const dropStyle = {
 		display: open ? '' : 'none',

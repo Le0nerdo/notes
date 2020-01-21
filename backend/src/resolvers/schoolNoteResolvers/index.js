@@ -4,6 +4,8 @@ const { createSchoolNote } = require('./createSchoolNote')
 const { schoolNotes } = require('./schoolNotes')
 const { deleteSchoolNote } = require('./deleteSchoolNote')
 const { editSchoolNote } = require('./editSchoolNote')
+const { courses } = require('./courses')
+const { subjects } = require('./subjects')
 
 const schoolNoteResolvers = {
 	Query: {
@@ -15,6 +17,10 @@ const schoolNoteResolvers = {
 		createSubject,
 		createCourse,
 		editSchoolNote,
+	},
+	SchoolNote: {
+		courses,
+		subjects,
 	},
 }
 

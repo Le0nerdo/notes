@@ -72,7 +72,7 @@ const Note = ({ note }) => {
 				></input><br /></>
 			}
 			Subjects: {note.subjects.map(s => `${s.name} `)}<br />
-			Courses: {note.subjects.map(s => s.courses.map(c => `${c.name} `))}
+			Courses: {note.courses.map(c => `${c.name} `)}
 			{!editmode
 				? <p>{note.content}</p>
 				: <><br /><textarea
