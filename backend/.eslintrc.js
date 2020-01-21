@@ -48,6 +48,10 @@ module.exports = {
 		'comma-dangle': [
 			'error',
 			'always-multiline'
-		]
+		],
+		'linebreak-style': [
+			'error',
+			'unix'
+		],
 	}
 }

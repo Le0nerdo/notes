@@ -6,11 +6,11 @@ const pool = new Pool({
 	host: 'localhost',
 	database: process.env.DB_USER,
 	password: process.env.DB_PASSWORD,
-	port: 5432
+	port: 5432,
 })
 
 const db = {
-	query: (text, params = []) => pool.query(text, params)
+	query: (text, params = []) => pool.query(text, params),
 }
 
 module.exports = { db }

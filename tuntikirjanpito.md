@@ -8,3 +8,10 @@
 |11.1		|2		|testing/making login on backend
 |12.1		|3		|finished minimal note and user/login mutations
 |12.1-13.1	|4		|Created minimal frontend
+|15.1		|9		|Restructuring database + making bad code
+|17.1-18.1	|5		|Restructured database
+|18.1		|5		|updated typeDefs and made some resolvers
+|19.1		|3		|made some resolvers
+|20.1-21.1	|6		|updating frontend
+|21.1		|4		|implemented note creation and editing to frontend
+|21.1		|2		|Fixed frontend cache problem with subjects

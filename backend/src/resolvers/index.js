@@ -1,11 +1,8 @@
 const { userResolvers } = require('./userResolvers')
-const { noteResolvers } = require('./noteResolvers')
-
-const tester = { Query: { hello: () => 'Hello World' } }
+const { schoolNoteResolvers } = require('./schoolNoteResolvers')
 
 const resolvers = [
-	tester,
-	noteResolvers,
+	schoolNoteResolvers,
 	userResolvers,
 ]
 
