@@ -3,6 +3,7 @@ const { createCourse } = require('./createCourse')
 const { createSchoolNote } = require('./createSchoolNote')
 const { schoolNotes } = require('./schoolNotes')
 const { deleteSchoolNote } = require('./deleteSchoolNote')
+const { editSchoolNote } = require('./editSchoolNote')
 
 const schoolNoteResolvers = {
 	Query: {
@@ -13,6 +14,7 @@ const schoolNoteResolvers = {
 		deleteSchoolNote,
 		createSubject,
 		createCourse,
+		editSchoolNote,
 	},
 }
 

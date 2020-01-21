@@ -28,6 +28,11 @@ const mutation = gql`
 		deleteSchoolNote(
 			id: Int!
 		): Confirmation
+		editSchoolNote(
+			header: String!
+			content: String!
+			id: Int!
+		): Confirmation
 	}
 `
 

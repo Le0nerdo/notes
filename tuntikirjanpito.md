@@ -13,3 +13,4 @@
 |18.1		|5		|updated typeDefs and made some resolvers
 |19.1		|3		|made some resolvers
 |20.1-21.1	|6		|updating frontend
+|21.1		|4		|implemented note creation and editing to frontend

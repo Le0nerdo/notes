@@ -1,4 +1,5 @@
 import React from 'react'
+import CreateCourse from './CreateCourse'
 
 const Subject = ({ subject }) => {
 	if (!subject.name) return null
@@ -6,6 +7,7 @@ const Subject = ({ subject }) => {
 	return (
 		<li>
 			<b>{subject.name}</b>
+			<CreateCourse subject={subject.id} />
 			<ul>
 				{subject.courses.map(c => {
 					if (!c.name) return null

@@ -25,7 +25,9 @@ export const SCHOOL_NOTES = gql`
 `
 
 const Notes = () => {
-	const { loading, data } = useQuery(SCHOOL_NOTES)
+	const { loading, data } = useQuery(SCHOOL_NOTES, {
+		fetchPolicy: 'no-cache',
+	})
 
 	return (
 		<div style={{ display: 'flex' }}>

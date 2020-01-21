@@ -1,11 +1,8 @@
 # ToDo
 
 ## make minimal up to date frontend  
-Make to be able to create a note  
-ask confirmation for delete  
+fix schoolNote query cache problem
 
-## add editing
-make ability to edit note header and content  
 # merge to main and start new branch
 tolearn notes
 # merge to main and start new branch
