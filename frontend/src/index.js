@@ -8,12 +8,13 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import App from './App'
 
 const cache = new InMemoryCache()
+
 const client = new ApolloClient({
 	cache,
 	link: createHttpLink({
 		uri: '/graphql',
 		headers: {
-			authorization: localStorage.getItem('token'),
+			authorization: localStorage.getItem('token') ? localStorage.getItem('token'): '',
 		},
 	}),
 	typeDefs,
@@ -23,6 +24,12 @@ const client = new ApolloClient({
 cache.writeData({
 	data: {
 		isLoggedIn: !!localStorage.getItem('token'),
+		filter: {
+			general: '',
+			subject: null,
+			course: null,
+			__typename: 'Filter',
+		},
 	},
 })
 

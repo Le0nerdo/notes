@@ -1,7 +1,8 @@
 # ToDo
 
-# merge to main and start new branch
-tolearn notes
+
+add tolearnNote support to frontend
+
 # merge to main and start new branch
 revisit sharing
 

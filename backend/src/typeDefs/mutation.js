@@ -33,6 +33,18 @@ const mutation = gql`
 			content: String!
 			id: Int!
 		): Confirmation
+
+		createTolearnNote(
+			course: Int!
+			content: String!
+		): Confirmation
+		deleteTolearnNote(
+			id: Int!
+		): Confirmation
+		editTolearnNote(
+			id: Int!
+			content: String!
+		): Confirmation
 	}
 `
 

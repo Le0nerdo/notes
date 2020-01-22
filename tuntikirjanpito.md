@@ -15,3 +15,4 @@
 |20.1-21.1	|6		|updating frontend
 |21.1		|4		|implemented note creation and editing to frontend
 |21.1		|2		|Fixed frontend cache problem with subjects
+|22.1		|6		|made tolearn note resolvers and a bit frontend
