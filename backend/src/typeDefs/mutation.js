@@ -45,6 +45,14 @@ const mutation = gql`
 			id: Int!
 			content: String!
 		): Confirmation
+
+		shareNote(
+			id: Int!
+			receiver: String!
+		): Confirmation
+		unshareNote(
+			id: Int!
+		): Confirmation
 	}
 `
 

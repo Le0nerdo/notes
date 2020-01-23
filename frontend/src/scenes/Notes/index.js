@@ -1,68 +1,24 @@
 import React from 'react'
+import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
-import { useQuery } from '@apollo/react-hooks'
-import Note from './components/Note'
-import CreateNote from './components/CreateNote'
-import gql from 'graphql-tag'
-import TolearnNote from './components/TolearnNote'
-import Header from './components/Header'
-
-export const SCHOOL_NOTES = gql`
-	query SchoolNotes {
-		schoolNotes {
-			id,
-			header,
-			content,
-			owner,
-			subjects {
-				id,
-				name
-			},
-			courses {
-				id,
-				name
-			}
-		}
-	}
-`
-
-const FILTER = gql`
-	query Filter {
-		filter @client {
-			general,
-			subject,
-			course
-		}
-	}
-`
+import MyNotes from './scenes/MyNotes'
+import SharedNotes from './scenes/SharedNotes'
 
 const Notes = () => {
-	const { loading, data } = useQuery(SCHOOL_NOTES)
-	const { subject, course } = useQuery(FILTER).data.filter
-
-	const filterer = (note) => {
-		if (subject) {
-			return note.subjects.map(s => s.id).includes(subject)
-		} else if (course) {
-			return note.courses.map(c => c.id).includes(course)
-		} else {
-			return true
-		}
-	}
-
-	if (loading) return null
+	const match = useRouteMatch()
 
 	return (
 		<div style={{ display: 'flex' }}>
 			<Sidebar />
-			<div style={{ position: 'absolute', left: '250px' }}>
-				<Header {...{ course, subject }} />
-				{(subject || course) && <TolearnNote courseId={course} />}
-				<CreateNote />
-				{data.schoolNotes.filter(filterer).map(n =>
-					<Note note={n} key={n.id}/>)
-				}
-			</div>
+			<Switch>
+				<Route path={`${match.url}/my`}>
+					<MyNotes />
+				</Route>
+				<Route path={`${match.url}/shared`}>
+					<SharedNotes />
+				</Route>
+				<Redirect to={`${match.url}/my`} />
+			</Switch>
 		</div>
 	)
 }

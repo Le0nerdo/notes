@@ -17,8 +17,8 @@ const Topbar = () => {
 	const login = () => history.push('/login')
 
 	const logut = () => {
-		client.writeData({ data: { isLoggedIn: false } })
 		localStorage.clear()
+		client.resetStore()
 		history.push('/')
 	}
 
