@@ -39,6 +39,7 @@ const CreateNote = () => {
 	const [selectedCourses, setSelectedCourses] = useState([])
 	const [header, setHeader] = useState('')
 	const [content, setContent] = useState('')
+	const [active, setActive] = useState(false)
 
 	if (loading) return null
 
@@ -62,6 +63,13 @@ const CreateNote = () => {
 		setContent('')
 	}
 
+	const cancel = () => {
+		setActive(false)
+		setHeader('')
+		setContent('')
+	}
+	if (!active) return <button onClick={() => setActive(true)}>Create Note</button>
+
 	return (
 		<div>
 			<SelectCourse {...{ courses, selectedCourses, setSelectedCourses }} />
@@ -77,6 +85,7 @@ const CreateNote = () => {
 				onChange={({ target }) => setContent(target.value)}
 			></textarea><br />
 			<button onClick={save}>Save</button>
+			<button onClick={cancel}>Cancel</button>
 		</div>
 	)
 }

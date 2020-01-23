@@ -5,6 +5,7 @@ import Note from './components/Note'
 import CreateNote from './components/CreateNote'
 import gql from 'graphql-tag'
 import TolearnNote from './components/TolearnNote'
+import Header from './components/Header'
 
 export const SCHOOL_NOTES = gql`
 	query SchoolNotes {
@@ -55,6 +56,7 @@ const Notes = () => {
 		<div style={{ display: 'flex' }}>
 			<Sidebar />
 			<div style={{ position: 'absolute', left: '250px' }}>
+				<Header {...{ course, subject }} />
 				{(subject || course) && <TolearnNote courseId={course} />}
 				<CreateNote />
 				{data.schoolNotes.filter(filterer).map(n =>

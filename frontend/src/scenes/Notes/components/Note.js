@@ -59,10 +59,11 @@ const Note = ({ note }) => {
 				content: newContent,
 			},
 		})
+		setEditMode(false)
 	}
 
 	return (
-		<div style={{ backgroundColor: 'yellow' }}>
+		<div style={{ backgroundColor: 'yellow', minWidth: '30em' }}>
 			{!editmode
 				? <h2>{note.header}</h2>
 				: <><br /><input

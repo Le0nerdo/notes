@@ -1,8 +1,10 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
+import ShowTolearnNote from './ShowTolearnNote'
+import CreateTolearnNote from './CreateTolearnNote'
 
-const GET_TOLEARN_NOTE = gql`
+export const GET_TOLEARN_NOTE = gql`
 	query GetTolearnNote($course: Int!) {
 		tolearnNote(course: $course) {
 			id,
@@ -17,13 +19,9 @@ const TolearnNote = ({ courseId }) => {
 	})
 
 	if (loading) return null
-	if (!data.tolearnNote) return <h2>No tolearn</h2>
-	return (
-		<div>
-			<h2>To Learn</h2>
-			{data.tolearnNote.content}<br /><br />
-		</div>
-	)
+	return data.tolearnNote
+		? <ShowTolearnNote tolearnNote={data.tolearnNote} courseId={courseId}/>
+		: <CreateTolearnNote courseId={courseId} />
 }
 
 export default TolearnNote
