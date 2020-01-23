@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { gql } from 'apollo-boost'
+import gql  from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { SCHOOL_NOTES } from '../'
 
@@ -59,10 +59,11 @@ const Note = ({ note }) => {
 				content: newContent,
 			},
 		})
+		setEditMode(false)
 	}
 
 	return (
-		<div style={{ backgroundColor: 'yellow' }}>
+		<div style={{ backgroundColor: 'yellow', minWidth: '30em' }}>
 			{!editmode
 				? <h2>{note.header}</h2>
 				: <><br /><input

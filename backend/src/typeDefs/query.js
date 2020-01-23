@@ -4,6 +4,7 @@ const query = gql`
 	type Query {
 		schoolNotes: [SchoolNote!]!
 		me: Me!
+		tolearnNote(course: Int!): TolearnNote
 	}
 `
 
