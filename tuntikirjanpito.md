@@ -19,3 +19,4 @@
 |23.1		|2		|implemented tolearn notes to frontend(minimal)
 |23.1-24.1	|4		|started adding sharing for school notes
 |24.1		|1		|finished implemented sharing
+|24.1-25.1	|9		|updated typeDefs and tested "dataSources" (reading apollo server documentation)

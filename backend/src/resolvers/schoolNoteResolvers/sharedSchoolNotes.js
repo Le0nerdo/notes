@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express')
 const { db } = require('../../data')
 
-const sharedNotes = async (root, args, context) => {
+const sharedSchoolNotes = async (root, args, context) => {
 	if (!context.user) throw new AuthenticationError('not authenticated')
 	const { rows } = await db.query(
 		`SELECT n.id AS id, a.username AS owner, n.header AS header, n.content AS content
@@ -15,4 +15,4 @@ const sharedNotes = async (root, args, context) => {
 	return rows
 }
 
-module.exports = { sharedNotes }
+module.exports = { sharedSchoolNotes }

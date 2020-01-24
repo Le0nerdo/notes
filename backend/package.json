@@ -17,6 +17,7 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "apollo-datasource": "^0.6.4",
     "apollo-server-express": "^2.9.16",
     "bcrypt": "^3.0.7",
     "dotenv": "^8.2.0",

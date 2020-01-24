@@ -1,35 +1,20 @@
-const { secret } = require('../../misc/envs')
 const { UserInputError } = require('apollo-server-express')
-const { db } = require('../../data')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { prettySubjectQuery } = require('../../data/queries')
 
-const login = async (root, args) => {
-	const { rows } = await db.query(
-		`SELECT username, id, password_hash
-		FROM account
-		WHERE username=$1`,
-		[args.username],
-	)
-	const user = rows[0]
-	const passwordCorrect = user
-		? await bcrypt.compare(args.password, user.password_hash)
+const login = async (_, { credentials }, { dataSources }) => {
+	const { rows } = await dataSources.db.getUserByName({ name: credentials.username })
+	const passwordCorrect = rows[0]
+		? await bcrypt.compare(credentials.password, rows[0].password_hash)
 		: false
 
-	if (!(user && passwordCorrect)) throw new UserInputError('wrong credentials')
+	if (!(rows[0] && passwordCorrect)) throw new UserInputError('wrong credentials')
 
-	const subjects = await prettySubjectQuery(user.id)
-
-	const token = {
-		token: jwt.sign({ id: user.id }, secret),
-		me: {
-			username: user.username,
-			subjects,
-		},
+	return {
+		success: !!rows[0],
+		username: rows[0].username,
+		token: jwt.sign({ id: rows[0].id }, process.env.SECRET),
 	}
-
-	return token
 }
 
 module.exports = { login }
