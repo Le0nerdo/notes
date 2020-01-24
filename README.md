@@ -7,8 +7,8 @@
 If I have enough time I will test to make a variation for games.
 
 ## Architecture
-* Frontend: [React](https://reactjs.org/)
-* Backend: [Node.js](https://nodejs.org/en/)
+* Frontend: [React](https://reactjs.org/) +  [Apollo Client](https://github.com/apollographql/apollo-client)
+* Backend: [Node.js](https://nodejs.org/en/) + [Apollo Server](https://github.com/apollographql/apollo-server)
 * Database: [PostgreSQL](https://www.postgresql.org/)
 * Run environment: [Docker](https://www.docker.com/)
 
@@ -16,6 +16,7 @@ If I have enough time I will test to make a variation for games.
 ### Development
 #### Database:
 ```sh
+# will change
 $ cd db
 $ docker-compose up -d
 ```
@@ -23,7 +24,7 @@ $ docker-compose up -d
 ```sh
 $ cd backend
 $ npm i
-$ npm watch
+$ npm run watch
 ```
 #### Frontend:
 ```sh
@@ -34,41 +35,37 @@ $ npm start
 
 ## Basic way to access data:
 ```
-User----+School-+ToLearn
+User----+School*+ToLearn
                 |
                 +Math---+ToLearn
                 |       |
                 |       |+Course1+ToLearn
                 |       |       +Note1
                 |       |       +Note2
-                |       |       +Shared
                 |       |
                 |       +Course2+ToLearn
                 |       |       +Note1
                 |       |       +Note2
-                |       |       +Shared
                 |       |
                 |       |
                 |       +Note1
                 |       +Note2
-                |       +Shared
                 |
                 +Physics+ToLearn
-                        |
-                        +Course1+ToLearn
-                        |       +Note1
-                        |       +Note2
-                        |       +Shared
-                        |
-                        +Course2+ToLearn
-                        |       +Note1
-                        |       +Note2
-                        |       +Shared
-                        +Note1
-                        +Note2
-                        +Shared
-         
+                |       |
+                |       +Course1+ToLearn
+            	|       |       +Note1
+            	|       |       +Note2
+                |       |
+                |       +Course2+ToLearn
+                |       |       +Note1
+                |       |       +Note2
+                |       +Note1
+                |       +Note2
+                |
+                +Shared
 ```
+*will maybe be implemented
 ## Useful links
 [postgres docker](https://hub.docker.com/_/postgres)  
 [node-postgres documentation](https://node-postgres.com/)  

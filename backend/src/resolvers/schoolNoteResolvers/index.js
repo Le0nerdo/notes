@@ -6,10 +6,15 @@ const { deleteSchoolNote } = require('./deleteSchoolNote')
 const { editSchoolNote } = require('./editSchoolNote')
 const { courses } = require('./courses')
 const { subjects } = require('./subjects')
+const { sharedNotes } = require('./sharedNotes')
+const { shareNote } = require('./shareNote')
+const { unshareNote } = require('./unshareNote')
+const { unsubscribe } = require('./unsubscribe')
 
 const schoolNoteResolvers = {
 	Query: {
 		schoolNotes,
+		sharedNotes,
 	},
 	Mutation: {
 		createSchoolNote,
@@ -17,6 +22,9 @@ const schoolNoteResolvers = {
 		createSubject,
 		createCourse,
 		editSchoolNote,
+		shareNote,
+		unshareNote,
+		unsubscribe,
 	},
 	SchoolNote: {
 		courses,

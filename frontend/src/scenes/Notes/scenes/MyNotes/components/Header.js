@@ -1,9 +1,35 @@
 import React from 'react'
-import { ME } from './Sidebar'
 import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 
-const Header = ({ course, subject }) => {
+const FILTER = gql`
+	query Filter {
+		filter @client {
+			general,
+			subject,
+			course
+		}
+	}
+`
+
+const ME = gql`
+	query Me {
+		me {
+			subjects {
+				name,
+				id
+				courses {
+					name,
+					id
+				}
+			}
+		}
+	}
+`
+
+const Header = () => {
 	const { loading , data } = useQuery(ME)
+	const { subject, course } = useQuery(FILTER).data.filter
 
 	if (!(course || subject) || loading) return null
 

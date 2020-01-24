@@ -27,16 +27,39 @@ const EDIT_NOTE = gql`
 	}
 `
 
+const STOP_SHARING = gql`
+	mutation stopSharing($id: Int!) {
+		unshareNote(
+			id: $id
+		){
+			id,
+			success
+		}
+	}
+`
+
+const SHARE_NOTE = gql`
+	mutation shareNote($id: Int!, $receiver: String!) {
+		shareNote(id: $id, receiver: $receiver) {
+			id
+			success
+		}
+	}
+`
+
 const Note = ({ note }) => {
 	const [editmode, setEditMode] = useState(false)
 	const [newHeader, setNewHeader] = useState(note.header)
 	const [newContent, setNewContent] = useState(note.content)
+	const [receiver, setReceiver] = useState('')
 	const [deleteNote] = useMutation(DELETE_NOTE, {
 		refetchQueries: [{ query: SCHOOL_NOTES }],
 	})
 	const [editNote] = useMutation(EDIT_NOTE, {
 		refetchQueries: [{ query: SCHOOL_NOTES }],
 	})
+	const [stopSharing] = useMutation(STOP_SHARING)
+	const [shareNote] = useMutation(SHARE_NOTE)
 
 	const removeNote = async () => {
 		const message = `Do you really want to delete '${note.header}'`
@@ -60,6 +83,26 @@ const Note = ({ note }) => {
 			},
 		})
 		setEditMode(false)
+	}
+
+	const unshareNote = async () => {
+		await stopSharing({
+			variables: {
+				id: note.id,
+			},
+		})
+	}
+
+	const share = async () => {
+		const { data } = await shareNote({
+			variables: {
+				id: note.id,
+				receiver,
+			},
+		})
+		if (data) {
+			setReceiver('')
+		}
 	}
 
 	return (
@@ -90,6 +133,13 @@ const Note = ({ note }) => {
 				</>
 			}
 			<button onClick={removeNote}>DELETE</button>
+			<button onClick={unshareNote}>Stop Sharing</button>
+			{' '}<button onClick={share}>Share</button>
+			<input
+				type='text'
+				value={receiver}
+				onChange={({ target }) => setReceiver(target.value)}
+			></input>
 		</div>
 	)
 }

@@ -66,11 +66,11 @@ const Login = () => {
 		})
 
 		if (result) {
-			const newToken = result.data.login.token
-			localStorage.setItem('token', newToken)
 			setUsername('')
 			setEmail('')
 			setPassword('')
+			const newToken = result.data.login.token
+			localStorage.setItem('token', newToken)
 			client.writeData({ data: { isLoggedIn: true } })
 		}
 	}
@@ -85,11 +85,11 @@ const Login = () => {
 		})
 
 		if (result) {
-			const newToken = result.data.createUser.token
-			localStorage.setItem('token', newToken)
 			setUsername('')
 			setEmail('')
 			setPassword('')
+			const newToken = result.data.createUser.token
+			localStorage.setItem('token', newToken)
 			client.writeData({ data: { isLoggedIn: true } })
 		}
 	}

@@ -5,6 +5,7 @@ const query = gql`
 		schoolNotes: [SchoolNote!]!
 		me: Me!
 		tolearnNote(course: Int!): TolearnNote
+		sharedNotes: [SchoolNote!]!
 	}
 `
 
