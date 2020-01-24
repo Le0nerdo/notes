@@ -53,6 +53,9 @@ const mutation = gql`
 		unshareNote(
 			id: Int!
 		): Confirmation
+		unsubscribe(
+			id: Int!
+		): Confirmation
 	}
 `
 

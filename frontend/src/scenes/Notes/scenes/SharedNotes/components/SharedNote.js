@@ -1,9 +1,28 @@
 import React from 'react'
+import gql from 'graphql-tag'
+import { useMutation } from '@apollo/react-hooks'
+import { SHARED_NOTES } from '../'
+
+const UNSUBSCRIBE = gql`
+	mutation unsubscribe($id: Int!) {
+		unsubscribe(id: $id) {
+			id
+			success
+		}
+	}
+`
 
 const SharedNote = ({ note }) => {
+	const [unsubscribe] = useMutation(UNSUBSCRIBE, {
+		refetchQueries: [{ query: SHARED_NOTES }],
+	})
 
-	const unsubscribe = () => {
-		console.log('You wish you could')
+	const clearSubscription = async () => {
+		await unsubscribe({
+			variables: {
+				id: note.id,
+			},
+		})
 	}
 
 	return (
@@ -12,7 +31,7 @@ const SharedNote = ({ note }) => {
 			Subjects: {note.subjects.map(s => `${s.name} `)}<br />
 			Courses: {note.courses.map(c => `${c.name} `)}
 			<p>{note.content}</p>
-			<button onClick={unsubscribe}>Unsubscribe</button>
+			<button onClick={clearSubscription}>Unsubscribe</button>
 		</div>
 	)
 }

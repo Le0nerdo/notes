@@ -9,6 +9,7 @@ const { subjects } = require('./subjects')
 const { sharedNotes } = require('./sharedNotes')
 const { shareNote } = require('./shareNote')
 const { unshareNote } = require('./unshareNote')
+const { unsubscribe } = require('./unsubscribe')
 
 const schoolNoteResolvers = {
 	Query: {
@@ -23,6 +24,7 @@ const schoolNoteResolvers = {
 		editSchoolNote,
 		shareNote,
 		unshareNote,
+		unsubscribe,
 	},
 	SchoolNote: {
 		courses,
