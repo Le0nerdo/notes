@@ -28,9 +28,8 @@ const User = gql`
 	}
 
 	type Me {
-		success: Boolean!
-		username: String!
 		authorized: Boolean!
+		username: String
 	}
 `
 

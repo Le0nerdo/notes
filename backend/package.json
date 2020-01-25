@@ -6,14 +6,17 @@
   "scripts": {
     "start": "node src",
     "watch": "nodemon src",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env NODE_ENV=test jest --watch --verbose --runInBand --detectOpenHandles",
     "createTables": "node db/createTables.js",
     "testQuery": "node testQuery.js"
   },
   "author": "Leo Becker",
   "license": "MIT",
   "devDependencies": {
+    "apollo-server-testing": "^2.9.16",
+    "cross-env": "^6.0.3",
     "eslint": "^6.8.0",
+    "jest": "^25.1.0",
     "nodemon": "^2.0.2"
   },
   "dependencies": {

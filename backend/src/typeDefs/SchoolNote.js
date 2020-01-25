@@ -4,18 +4,18 @@ const SchoolNote = gql`
 	extend type Query {
 		schoolNotes: [SchoolNote!]!
 		sharedSchoolNotes: [SchoolNote!]!
-		subjects: [Subject!]!
+		mySubjects: [Subject!]!
 	}
 
 	extend type Mutation {
-		createSchoolNote(newSchoolNote: NewSchoolNote): SchoolNote!
-		editSchoolNote(savedSchoolNote: SavedSchoolNote): SchoolNote!
+		createSchoolNote(newSchoolNote: NewSchoolNote): SchoolNote
+		editSchoolNote(savedSchoolNote: SavedSchoolNote): SchoolNote
 		deleteSchoolNote(id: Int!): Confirmation!
 		shareNote(id: Int!, receiver: String!): Confirmation!
 		unshareNote(id: Int!): Confirmation!
 		unsubscribe(id: Int!): Confirmation!
 		createSubject(name: String!): Subject
-		createCourse(subjects: [Int!]!, name: String!): [Subject]
+		createCourse(subjects: [Int!]!, name: String!): Course
 	}
 
 	type SchoolNote {
@@ -48,7 +48,7 @@ const SchoolNote = gql`
 	type Course {
 		id: Int!
 		name: String!
-		Subjects: [NestedSubject!]!
+		subjects: [NestedSubject!]!
 	}
 
 	type NestedSubject {
