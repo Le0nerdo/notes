@@ -13,38 +13,41 @@ class PostgresDataSource extends DataSource {
 
 	async createUser({ username, email, passwordHash }) {
 		const args = [username, email, passwordHash]
-		const data = await this.query(SQL.createUser, args)
-
-		return data
+		return await this.query(SQL.createUser, args)
 	}
 
 	async getUserById({ id }) {
 		const args = [id]
-		const data = await this.query(SQL.getUserById, args)
-
-		return data
+		return await this.query(SQL.getUserById, args)
 	}
 
 	async getUserByName({ name, username }) {
 		const args = [name || username]
-		const data = await this.query(SQL.getUserByName, args)
-
-		return data
+		return await this.query(SQL.getUserByName, args)
 	}
 
 	async createSubject({ name }) {
 		const args = [this.user.id, name]
-		const data = await this.query(SQL.createSubject, args)
-
-		return data
+		return await this.query(SQL.createSubject, args)
 	}
 
 	async createCourse({ name, subjects }) {
 		const args = [this.user.id, name, ...subjects]
-		const query = SQL.createCourse(subjects)
-		const data = await this.query(query, args)
-		console.log(data.rows)
-		return data
+		return await this.query(SQL.createCourse(subjects), args)
+	}
+
+	async getSubjects() {
+		const args = [this.user.id]
+		return await this.query(SQL.getSubjects, args)
+	}
+
+	async getSchoolNotes() {
+		const args = [this.user.id]
+		return await this.query(SQL.getSchoolNotes, args)
+	}
+	async createSchoolNote({ header, content, courses }) {
+		const args = [this.user.id, header, content, ...courses]
+		return await this.query(SQL.createSchoolNote(courses), args)
 	}
 }
 

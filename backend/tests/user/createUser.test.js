@@ -1,5 +1,5 @@
 const { createTestClient } = require('apollo-server-testing')
-const { createTestServer } = require('../../utils')
+const { createTestServer } = require('../__utils')
 const gql = require('graphql-tag')
 
 const CREATE_USER = gql`
@@ -11,6 +11,7 @@ const CREATE_USER = gql`
 		}
 	}
 `
+
 const testUser = {
 	username: 'Test',
 	email: 'test@test.test',
@@ -30,7 +31,7 @@ describe('createUser (mutation)', () => {
 		const newUser = testUser
 		const { data, errors } = await query({ query: CREATE_USER, variables: { newUser } })
 
-		expect(data).toBeDefined()
+		expect(data).not.toBe(null)
 		expect(errors).toBeUndefined()
 		expect(data.createUser.success).toBe(true)
 		expect(data.createUser.username).toBe(testUser.username)

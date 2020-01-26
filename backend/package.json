@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src",
     "watch": "nodemon src",
-    "test": "cross-env NODE_ENV=test jest --watch --verbose --runInBand --detectOpenHandles",
+	"test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+	"test:user": "cross-env NODE_ENV=test jest --watchAll --verbose --runInBand --detectOpenHandles tests/user",
+	"test:schoolNote": "cross-env NODE_ENV=test jest --watchAll --verbose --runInBand --detectOpenHandles tests/schoolNote",
     "createTables": "node db/createTables.js",
     "testQuery": "node testQuery.js"
   },

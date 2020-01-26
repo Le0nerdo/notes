@@ -23,14 +23,14 @@ const SchoolNote = gql`
 		owner: String!
 		header: String!
 		content: String!
-		subjects: [Subject!]!
-		courses: [Course!]!
+		subjects: [NestedSubject!]!
+		courses: [NestedCourse!]!
 	}
 
 	input NewSchoolNote {
 		header: String!
 		content: String!
-		course: [Int!]!
+		courses: [Int!]!
 	}
 
 	input SavedSchoolNote {

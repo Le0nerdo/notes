@@ -1,5 +1,5 @@
 const { createTestClient } = require('apollo-server-testing')
-const { createTestServer } = require('../../utils')
+const { createTestServer } = require('../__utils')
 const bcrypt = require('bcrypt')
 const gql = require('graphql-tag')
 
@@ -41,7 +41,7 @@ describe('login (mutation)', () => {
 		const credentials = testCredentials
 		const { data, errors } = await query({ query: LOGIN, variables: { credentials } })
 
-		expect(data).toBeDefined()
+		expect(data).not.toBe(null)
 		expect(errors).toBeUndefined()
 		expect(data.login.success).toBe(true)
 		expect(data.login.username).toBe(testCredentials.username)

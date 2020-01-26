@@ -20,9 +20,9 @@ const createCourse = (subjects) => `
 		VALUES($1, $2)
 		RETURNING id, name
 	), cs AS (
-	INSERT INTO course_subject(owner_id, course_id, subject_id) VALUES
-	${subjects.map((_, i) => `($1, (SELECT id FROM cou), $${i + 3})`).join(',\n')}
-	RETURNING subject_id
+		INSERT INTO course_subject(owner_id, course_id, subject_id) VALUES
+		${subjects.map((_, i) => `($1, (SELECT id FROM cou), $${i + 3})`).join(',\n')}
+		RETURNING subject_id
 	)
 	SELECT id, name
 	FROM cou
@@ -32,7 +32,16 @@ const createCourse = (subjects) => `
 	JOIN subject s ON cs.subject_id=s.id
 `
 
-module.exports = {
+const getSubjects = `
+	SELECT c.id course_id, c.name course_name, s.id subject_id, s.name subject_name
+	FROM course_subject cs
+	JOIN course c ON cs.course_id=c.id
+	JOIN subject s ON cs.subject_id=s.id
+	WHERE cs.owner_id=$1
+`
+
+module.exports = { courseSubjectQueries: {
 	createSubject,
 	createCourse,
-}
+	getSubjects,
+} }

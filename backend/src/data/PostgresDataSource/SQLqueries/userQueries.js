@@ -29,8 +29,8 @@ const createUser = `
 	RETURNING (SELECT id FROM owner) AS id, (SELECT username FROM owner) AS username
 `
 
-module.exports = {
+module.exports = { userQueries: {
 	getUserByName,
 	getUserById,
 	createUser,
-}
+} }

@@ -21,3 +21,4 @@
 |24.1		|1		|finished implemented sharing
 |24.1-25.1	|9		|updated typeDefs and tested "dataSources" (reading apollo server documentation)
 |25.1		|8		|started redoing resolvers and making tests
+|26.1		|4		|continued redoing school note resolvers

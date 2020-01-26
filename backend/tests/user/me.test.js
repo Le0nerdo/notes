@@ -1,5 +1,5 @@
 const { createTestClient } = require('apollo-server-testing')
-const { createTestServer } = require('../../utils')
+const { createTestServer } = require('../__utils')
 const gql = require('graphql-tag')
 
 const ME = gql`
@@ -20,7 +20,7 @@ describe('me (query)', () => {
 		const { query } = createTestClient(server)
 		const { data, errors } = await query({ query: ME })
 
-		expect(data).toBeDefined()
+		expect(data).not.toBe(null)
 		expect(errors).toBeUndefined()
 		expect(data.me.authorized).toBe(true)
 		expect(data.me.username).toBe(mockContext.user.username)

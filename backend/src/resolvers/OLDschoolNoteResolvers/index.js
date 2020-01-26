@@ -1,5 +1,3 @@
-const { createSubject } = require('./createSubject')
-const { createCourse } = require('./createCourse')
 const { createSchoolNote } = require('./createSchoolNote')
 const { schoolNotes } = require('./schoolNotes')
 const { deleteSchoolNote } = require('./deleteSchoolNote')
@@ -19,8 +17,6 @@ const schoolNoteResolvers = {
 	Mutation: {
 		createSchoolNote,
 		deleteSchoolNote,
-		createSubject,
-		createCourse,
 		editSchoolNote,
 		shareNote,
 		unshareNote,
