@@ -9,11 +9,11 @@ const SchoolNote = gql`
 
 	extend type Mutation {
 		createSchoolNote(newSchoolNote: NewSchoolNote): SchoolNote
-		editSchoolNote(savedSchoolNote: SavedSchoolNote): SchoolNote
+		updateSchoolNote(updatedSchoolNote: UpdatedSchoolNote!): SchoolNote
 		deleteSchoolNote(id: Int!): Confirmation!
-		shareNote(id: Int!, receiver: String!): Confirmation!
-		unshareNote(id: Int!): Confirmation!
-		unsubscribe(id: Int!): Confirmation!
+		shareSchoolNote(id: Int!, receiver: String!): Confirmation!
+		unshareSchoolNote(id: Int!): Confirmation!
+		unSubSchoolNote(id: Int!): Confirmation!
 		createSubject(name: String!): Subject
 		createCourse(subjects: [Int!]!, name: String!): Course
 	}
@@ -33,7 +33,7 @@ const SchoolNote = gql`
 		courses: [Int!]!
 	}
 
-	input SavedSchoolNote {
+	input UpdatedSchoolNote {
 		id: Int!
 		header: String!
 		content: String!

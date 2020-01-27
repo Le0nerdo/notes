@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
+    "start": "NODE_ENV=production node src",
     "watch": "nodemon src",
-	"test": "cross-env NODE_ENV=test jest --verbose --runInBand",
-	"test:user": "cross-env NODE_ENV=test jest --watchAll --verbose --runInBand --detectOpenHandles tests/user",
-	"test:schoolNote": "cross-env NODE_ENV=test jest --watchAll --verbose --runInBand --detectOpenHandles tests/schoolNote",
+	"test": "jest --verbose --runInBand",
+	"test:watch": "jest --watchAll --verbose --runInBand --detectOpenHandles tests/$1",
     "createTables": "node db/createTables.js",
     "testQuery": "node testQuery.js"
   },
@@ -16,7 +15,6 @@
   "license": "MIT",
   "devDependencies": {
     "apollo-server-testing": "^2.9.16",
-    "cross-env": "^6.0.3",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2"
@@ -29,5 +27,17 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.17.0"
+  },
+  "nodemonConfig": {
+	"ignore": ["tests/*"],
+	"env": {
+		"NODE_ENV": "development"
+	}
+  },
+  "jest": {
+	"globals": {
+		"testEnvironment": "node",
+		"NODE_ENV": "test"
+	}
   }
 }

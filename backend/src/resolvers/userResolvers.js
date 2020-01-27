@@ -24,7 +24,7 @@ const createUser = async (_, { newUser }, { dataSources }) => {
 		if (error.constraint === 'account_username_key') {
 			throw new UserInputError('Username is already taken.')
 		} else if (error.constraint === 'account_email_key') {
-			throw new UserInputError('User with email exists')
+			throw new UserInputError('User with email exists.')
 		}
 		unexpectedError(error)
 	}

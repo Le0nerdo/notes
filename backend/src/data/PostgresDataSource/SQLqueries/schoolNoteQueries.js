@@ -45,7 +45,39 @@ const createSchoolNote = (courses) => `
 	GROUP BY s.id
 `
 
+const updateSchoolNote = `
+	WITH note AS (
+		UPDATE school_note
+		SET header=$3, content=$4
+		WHERE owner_id=$1 AND id=$2
+		RETURNING id, header, content
+	)
+	SELECT id, header AS name, content
+	FROM note
+	UNION ALL
+	SELECT c.id AS id, c.name AS name, 'course' AS content
+	FROM school_note_course snc
+	JOIN course c ON snc.course_id=c.id
+	WHERE snc.note_id=(SELECT id FROM note)
+	UNION ALL
+	SELECT s.id AS id, s.name AS name, 'subject' AS subject
+	FROM school_note_course snc
+	JOIN course_subject cs ON snc.course_id=cs.course_id
+	JOIN subject s ON cs.subject_id=s.id
+	WHERE snc.note_id=(SELECT id FROM note)
+	GROUP BY s.id
+`
+
+const deleteSchoolNote = `
+	DELETE
+	FROM school_note
+	WHERE owner_id=$1 AND id=$2
+	RETURNING id
+`
+
 module.exports = { schoolNoteQueries: {
 	getSchoolNotes,
 	createSchoolNote,
+	updateSchoolNote,
+	deleteSchoolNote,
 } }

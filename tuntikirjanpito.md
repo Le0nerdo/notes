@@ -22,3 +22,4 @@
 |24.1-25.1	|9		|updated typeDefs and tested "dataSources" (reading apollo server documentation)
 |25.1		|8		|started redoing resolvers and making tests
 |26.1		|4		|continued redoing school note resolvers
+|27.1		|7		|redid school note resolvers and some tests

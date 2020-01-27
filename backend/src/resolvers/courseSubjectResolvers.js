@@ -1,5 +1,5 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express')
-const { unexpectedError } = require('../../misc/unexpectedError')
+const { unexpectedError } = require('../misc/unexpectedError')
 
 const createSubject = async (_, { name }, { user, dataSources }) => {
 	if (!user) throw new AuthenticationError('Not authenticated.')
@@ -58,7 +58,7 @@ const mySubjects = async (_, __, { user, dataSources }) => {
 	}
 }
 
-module.exports = { courseSubjectResolvers: {
+module.exports = { courseSubjectResolvers: [{
 	Query: {
 		mySubjects,
 	},
@@ -66,4 +66,4 @@ module.exports = { courseSubjectResolvers: {
 		createSubject,
 		createCourse,
 	},
-} }
+}] }
