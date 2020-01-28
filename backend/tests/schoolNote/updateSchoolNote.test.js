@@ -35,7 +35,7 @@ describe('updateSchoolNote (mutation)', () => {
 			{ id: '2', name: 'Subject2', content: 'subject' },
 		] }))
 
-		const  { query } = createTestClient(server)
+		const { query } = createTestClient(server)
 		const updatedSchoolNote = { id: 1, header: 'Testheader', content: 'test' }
 		const { data, errors } =  await query({ query: UPDATE_SCHOOL_NOTE, variables: { updatedSchoolNote } })
 

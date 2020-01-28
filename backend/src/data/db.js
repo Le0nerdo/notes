@@ -9,6 +9,10 @@ const pool = new Pool({
 	port: 5432,
 })
 
+pool.on('error', (err) => {
+	console.log('Pool error:', err.message)
+})
+
 const db = {
 	query: (text, params = []) => pool.query(text, params),
 }

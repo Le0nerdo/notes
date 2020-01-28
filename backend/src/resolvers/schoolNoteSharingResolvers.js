@@ -26,7 +26,7 @@ const shareSchoolNote = async (_, { id, receiver }, { user, dataSources }) => {
 		const { rows } = await dataSources.db.shareSchoolNote({ id, receiver })
 		return { success: rows.length === 1 }
 	} catch (error) {
-		if (error.detail.startsWith('Failing row contains')) {
+		if (error.detail && error.detail.startsWith('Failing row contains')) {
 			throw new UserInputError('User or note not found.')
 		}
 		unexpectedError(error)

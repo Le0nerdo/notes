@@ -20,6 +20,7 @@ const SCHOOL_NOTES = gql`
 		}
 	}
 `
+
 const mockContext = { user: { username: 'Test', id: '1' } }
 
 describe('schoolNotes (query)', () => {

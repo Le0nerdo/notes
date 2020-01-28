@@ -2,13 +2,13 @@ const { gql } = require('apollo-server-express')
 
 const ToLearnNote = gql`
 	extend type Query {
-		tolearnNote(course: Int!): ToLearnNote
+		toLearnNote(course: Int!): ToLearnNote
 	}
 
 	extend type Mutation {
-		createTolearnNote(newToLearnNote: NewToLearnNote): Confirmation!
-		editTolearnNote(savedToLearnNote: SavedToLearnNote): Confirmation!
-		deleteTolearnNote(id: Int!): Confirmation!
+		createToLearnNote(newToLearnNote: NewToLearnNote): ToLearnNote
+		updateToLearnNote(updatedToLearnNote: UpdatedToLearnNote): ToLearnNote
+		deleteToLearnNote(id: Int!): Confirmation!
 	}
 
 	input NewToLearnNote {
@@ -16,7 +16,7 @@ const ToLearnNote = gql`
 		content: String!
 	}
 
-	input SavedToLearnNote {
+	input UpdatedToLearnNote {
 		id: Int!
 		content: String!
 	}
@@ -24,7 +24,8 @@ const ToLearnNote = gql`
 	type ToLearnNote {
 		id: Int!
 		content: String!
-		course: Course!
+		courses: [NestedCourse!]!
+		subjects: [NestedSubject!]!
 	}
 `
 

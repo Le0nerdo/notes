@@ -56,7 +56,7 @@ const unSubSchoolNote = `
 	RETURNING note_id AS id
 `
 
-module.exports = { schoolNoteSharingQueries : {
+module.exports = { schoolNoteSharingQueries: {
 	getSharedSchoolNotes,
 	shareSchoolNote,
 	unshareSchoolNote,
