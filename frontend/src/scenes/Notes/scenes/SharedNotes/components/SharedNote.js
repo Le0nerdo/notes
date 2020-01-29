@@ -4,9 +4,8 @@ import { useMutation } from '@apollo/react-hooks'
 import { SHARED_NOTES } from '../'
 
 const UNSUBSCRIBE = gql`
-	mutation unsubscribe($id: Int!) {
-		unsubscribe(id: $id) {
-			id
+	mutation UnSubSchoolNote($id: Int!) {
+		unSubSchoolNote(id: $id) {
 			success
 		}
 	}

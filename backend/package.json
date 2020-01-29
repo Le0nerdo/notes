@@ -4,24 +4,40 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
+    "start": "NODE_ENV=production node src",
     "watch": "nodemon src",
-    "test": "echo \"Error: no test specified\" && exit 1",
+	"test": "jest --verbose --runInBand",
+	"test:watch": "jest --watchAll --verbose --runInBand --detectOpenHandles tests/$1",
     "createTables": "node db/createTables.js",
     "testQuery": "node testQuery.js"
   },
   "author": "Leo Becker",
   "license": "MIT",
   "devDependencies": {
+    "apollo-server-testing": "^2.9.16",
     "eslint": "^6.8.0",
+    "jest": "^25.1.0",
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "apollo-datasource": "^0.6.4",
     "apollo-server-express": "^2.9.16",
     "bcrypt": "^3.0.7",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.17.0"
+  },
+  "nodemonConfig": {
+	"ignore": ["tests/*"],
+	"env": {
+		"NODE_ENV": "development"
+	}
+  },
+  "jest": {
+	"globals": {
+		"testEnvironment": "node",
+		"NODE_ENV": "test"
+	}
   }
 }

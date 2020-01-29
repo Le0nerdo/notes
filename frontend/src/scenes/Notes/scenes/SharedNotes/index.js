@@ -4,16 +4,18 @@ import { useQuery } from '@apollo/react-hooks'
 import SharedNote from './components/SharedNote'
 
 export const SHARED_NOTES = gql`
-	query SharedNotes{
-		sharedNotes {
-			id,
-			owner,
-			header,
-			content,
+	query SharedSchoolNotes {
+		sharedSchoolNotes {
+			id
+			owner
+			header
+			content
 			subjects {
+				id
 				name
-			},
+			}
 			courses {
+				id
 				name
 			}
 		}
@@ -32,7 +34,7 @@ const SharedNotes = () => {
 	return (
 		<div style={{ position: 'absolute', left: '250px' }}>
 			<h1>Shared with me</h1>
-			{data.sharedNotes.map(n =>
+			{data.sharedSchoolNotes.map(n =>
 				<SharedNote key={n.id} note={n} />)
 			}
 		</div>

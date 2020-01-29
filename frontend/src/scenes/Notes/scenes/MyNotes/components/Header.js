@@ -12,33 +12,31 @@ const FILTER = gql`
 	}
 `
 
-const ME = gql`
-	query Me {
-		me {
-			subjects {
-				name,
+const MY_SUBJECTS = gql`
+	query MySubjects {
+		mySubjects{
+			id
+			name
+			courses {
 				id
-				courses {
-					name,
-					id
-				}
+				name
 			}
 		}
 	}
 `
 
 const Header = () => {
-	const { loading , data } = useQuery(ME)
+	const { loading , data } = useQuery(MY_SUBJECTS)
 	const { subject, course } = useQuery(FILTER).data.filter
 
 	if (!(course || subject) || loading) return null
 
 	if (subject && course) {
-		const subjectName = data.me.subjects.find(s => s.id === subject).name
+		const subjectName = data.mySubjects.find(s => s.id === subject).name
 		return <h1>{subjectName}</h1>
 	}
 
-	const courseName = data.me.subjects
+	const courseName = data.mySubjects
 		.reduce((c, n) => [...c, ...n.courses], [])
 		.find(c => c.id === course).name
 

@@ -1,11 +1,15 @@
 const { userResolvers } = require('./userResolvers')
+const { courseSubjectResolvers } = require('./courseSubjectResolvers')
 const { schoolNoteResolvers } = require('./schoolNoteResolvers')
-const { tolearnNoteResolvers } = require('./tolearnNoteResolvers')
+const { schoolNoteSharingResolvers } = require('./schoolNoteSharingResolvers')
+const { toLearnNoteResolvers } = require('./toLearnNoteResolvers')
 
 const resolvers = [
-	schoolNoteResolvers,
-	userResolvers,
-	tolearnNoteResolvers,
+	...userResolvers,
+	...courseSubjectResolvers,
+	...schoolNoteResolvers,
+	...schoolNoteSharingResolvers,
+	...toLearnNoteResolvers,
 ]
 
 module.exports = { resolvers }

@@ -4,46 +4,21 @@ import { useMutation, useApolloClient } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const LOGIN = gql`
-	mutation login($username: String!, $password: String!) {
-		login(
-			username: $username,
-			password: $password
-		) {
-			token,
-			me {
-				username,
-				subjects {
-					id,
-					name,
-					courses {
-						id,
-						name
-					}
-				}
-			}
+	mutation Login($credentials: Credentials!) {
+		login(credentials: $credentials) {
+			success
+			username
+			token
 		}
 	}
 `
 
 const CREATE_USER = gql`
-	mutation createUser($username: String!, $email: String!, $password: String!) {
-		createUser(
-			username: $username,
-			email: $email,
-			password: $password
-		) {
+	mutation CreateUser($newUser: NewUser!) {
+		createUser(newUser: $newUser) {
+			success
+			username
 			token
-			me {
-				username,
-				subjects {
-					id,
-					name,
-					courses {
-						id,
-						name
-					}
-				}
-			}
 		}
 	}
 `
@@ -62,7 +37,7 @@ const Login = () => {
 		if (!(username && password)) return
 
 		const result = await login({
-			variables: { username, password },
+			variables: { credentials: { username, password } },
 		})
 
 		if (result) {
@@ -81,7 +56,7 @@ const Login = () => {
 		if (!(username && email && password)) return
 
 		const result = await createUser({
-			variables: { username, email, password },
+			variables: { newUser: { username, email, password } },
 		})
 
 		if (result) {

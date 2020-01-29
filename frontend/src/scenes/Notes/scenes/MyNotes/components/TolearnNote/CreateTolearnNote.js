@@ -4,13 +4,9 @@ import { useMutation } from '@apollo/react-hooks'
 import { GET_TOLEARN_NOTE } from './'
 
 const CREATE_TOLEARN_NOTE = gql`
-	mutation CreateTolearnNote($course: Int!, $content: String!) {
-		createTolearnNote(
-			course: $course,
-			content: $content
-		) {
+	mutation CreateToLearnNote($newToLearnNote: NewToLearnNote!) {
+		createToLearnNote(newToLearnNote: $newToLearnNote) {
 			id,
-			success
 		}
 	}
 `
@@ -27,10 +23,10 @@ const CreateTolearnNote = ({ courseId }) => {
 
 	const save = async () => {
 		await createTolearnNote({
-			variables: {
+			variables: { newToLearnNote: {
 				course: courseId,
 				content,
-			},
+			} },
 		})
 	}
 

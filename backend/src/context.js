@@ -1,4 +1,4 @@
-require('dotenv').config()
+const { ApolloError } = require('apollo-server-express')
 const { db } = require('./data')
 const jwt = require('jsonwebtoken')
 
@@ -15,7 +15,10 @@ const context = async ({ req }) => {
 			)
 			return { user: rows[0] }
 		}
-	} catch (e) {
+	} catch (error) {
+		if (error.code === 'ECONNREFUSED') {
+			throw new ApolloError('Can\'t connect to database.')
+		}
 		return
 	}
 }

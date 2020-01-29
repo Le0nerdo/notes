@@ -4,35 +4,40 @@ import gql from 'graphql-tag'
 import SelectCourse from './components/SelectCourse'
 import { SCHOOL_NOTES } from '../..'
 
-const ME = gql`
-	query Me {
-		me {
-			subjects {
-				name,
+const MY_SUBJECTS = gql`
+	query MySubjects {
+		mySubjects{
+			id
+			name
+			courses {
 				id
-				courses {
-					name,
-					id
-				}
+				name
 			}
 		}
 	}
 `
 
 const CREATE_SCHOOL_NOTE = gql`
-	mutation CreateSchoolNote($header: String!, $content: String!, $courses: [Int!]!) {
-		createSchoolNote(
-			header: $header,
-			content: $content,
-			courses: $courses
-		){
+	mutation CreateSchoolNote($newSchoolNote: NewSchoolNote!) {
+		createSchoolNote(newSchoolNote: $newSchoolNote) {
 			id
+			owner
+			header
+			content
+			subjects {
+				id
+				name
+			}
+			courses {
+				id
+				name
+			}
 		}
 	}
 `
 
 const CreateNote = () => {
-	const { loading, data } = useQuery(ME)
+	const { loading, data } = useQuery(MY_SUBJECTS)
 	const [createSchoolNote] = useMutation(CREATE_SCHOOL_NOTE, {
 		refetchQueries: [{ query: SCHOOL_NOTES }],
 	})
@@ -43,19 +48,19 @@ const CreateNote = () => {
 
 	if (loading) return null
 
-	const courses = [...new Set(data.me.subjects.reduce((c, s) => [...c, ...s.courses], []).filter(c => c.name))]
+	const courses = [...new Set(data.mySubjects.reduce((c, s) => [...c, ...s.courses], []).filter(c => c.name))]
 
 	const save = async () => {
 		const endCourses = selectedCourses.length > 0
 			? selectedCourses
-			: [data.me.subjects.find(s => s.name === '').courses.find(c => c.name === '').id]
+			: [data.mySubjects.find(s => s.name === '').courses.find(c => c.name === '').id]
 
 		await createSchoolNote({
-			variables: {
+			variables: { newSchoolNote: {
 				header,
 				content,
 				courses: endCourses,
-			},
+			} },
 		})
 
 		setSelectedCourses([])
