@@ -1,5 +1,5 @@
 const { UserInputError } = require('apollo-server-express')
-const { unexpectedError } = require('../misc/unexpectedError')
+const { unexpectedError } = require('../errors')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 

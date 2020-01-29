@@ -1,5 +1,5 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express')
-const { unexpectedError } = require('../misc/unexpectedError')
+const { unexpectedError } = require('../errors')
 
 const schoolNotes = async (_, __, { user, dataSources }) => {
 	if (!user) throw new AuthenticationError('Not authenticated.')

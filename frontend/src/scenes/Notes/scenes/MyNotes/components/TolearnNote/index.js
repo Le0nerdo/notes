@@ -6,7 +6,7 @@ import CreateTolearnNote from './CreateTolearnNote'
 
 export const GET_TOLEARN_NOTE = gql`
 	query GetTolearnNote($course: Int!) {
-		tolearnNote(course: $course) {
+		toLearnNote(course: $course) {
 			id,
 			content
 		}
@@ -19,8 +19,8 @@ const TolearnNote = ({ courseId }) => {
 	})
 
 	if (loading) return null
-	return data.tolearnNote
-		? <ShowTolearnNote tolearnNote={data.tolearnNote} courseId={courseId}/>
+	return data.toLearnNote
+		? <ShowTolearnNote tolearnNote={data.toLearnNote} courseId={courseId}/>
 		: <CreateTolearnNote courseId={courseId} />
 }
 

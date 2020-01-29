@@ -5,16 +5,14 @@ import Subject from './components/Subject'
 import CreateSubject from './components/CreateSubject'
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 
-export const ME = gql`
-	query Me {
-		me {
-			subjects {
-				name,
+export const MY_SUBJECTS = gql`
+	query MySubjects {
+		mySubjects{
+			id
+			name
+			courses {
 				id
-				courses {
-					name,
-					id
-				}
+				name
 			}
 		}
 	}
@@ -31,7 +29,7 @@ const RESET_FILTER = gql`
 `
 
 const Sidebar = () => {
-	const { loading, data } = useQuery(ME)
+	const { loading, data } = useQuery(MY_SUBJECTS)
 	const [filter] = useMutation(RESET_FILTER)
 	const match = useRouteMatch()
 
@@ -41,7 +39,7 @@ const Sidebar = () => {
 		<div style={{ minWidth: '250px', maxWidth: '250px' }}>
 			<nav>
 				<h3 onClick={filter}>Reset filter</h3>
-				{data.me.subjects.map(s =>
+				{data.mySubjects.map(s =>
 					<Subject subject={s} key={s.id}/>)
 				}
 			</nav>

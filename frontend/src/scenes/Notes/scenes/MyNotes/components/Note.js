@@ -9,39 +9,40 @@ const DELETE_NOTE = gql`
 			id: $id
 		) {
 			success,
-			id
 		}
 	}
 `
 
 const EDIT_NOTE = gql`
-	mutation EditSchoolNote($id: Int!, $header: String!, $content: String!) {
-		editSchoolNote(
-			id: $id,
-			header: $header,
-			content: $content
-		){
-			success,
+	mutation UpdateSchoolNote($updatedSchoolNote: UpdatedSchoolNote!) {
+		updateSchoolNote(updatedSchoolNote: $updatedSchoolNote) {
 			id
+			owner
+			header
+			content
+			subjects {
+				id
+				name
+			}
+			courses {
+				id
+				name
+			}
 		}
 	}
 `
 
 const STOP_SHARING = gql`
-	mutation stopSharing($id: Int!) {
-		unshareNote(
-			id: $id
-		){
-			id,
+	mutation UnshareSchoolNote($id: Int!) {
+		unshareSchoolNote(id: $id) {
 			success
 		}
 	}
 `
 
 const SHARE_NOTE = gql`
-	mutation shareNote($id: Int!, $receiver: String!) {
-		shareNote(id: $id, receiver: $receiver) {
-			id
+	mutation ShareSchoolNote($id: Int!, $receiver: String!) {
+		shareSchoolNote(id: $id, receiver: $receiver) {
 			success
 		}
 	}
@@ -76,11 +77,11 @@ const Note = ({ note }) => {
 
 	const save = async () => {
 		await editNote({
-			variables: {
+			variables: { updatedSchoolNote: {
 				id: note.id,
 				header: newHeader,
 				content: newContent,
-			},
+			} },
 		})
 		setEditMode(false)
 	}

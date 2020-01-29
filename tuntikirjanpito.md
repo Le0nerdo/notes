@@ -24,3 +24,4 @@
 |26.1.		|4		|continued redoing school note resolvers
 |27.1.		|7		|redid school note resolvers and some tests
 |28.1.-29.1.|5		|finished redoing resolvers
+|29.1.		|1		|updated frontend to work somehow with new backend

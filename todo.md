@@ -1,13 +1,7 @@
 # ToDo
 
-clean backend code, move databasecode to one place, make tests
-(refining backend)
+make/update frontend
 
-?? move unexpectedErrors file into resolvers folder
-
-give some nice error when cant connect to db?
-
-update frontend a bit before push to master
 
 # dept
 can create notes on others courses. For now making everything to work pretty much only in best case scenaria, because need to know if it even works. after getting stuff to work need to start thinking about testing.

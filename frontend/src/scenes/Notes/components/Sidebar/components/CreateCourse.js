@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import gql from 'graphql-tag'
-import { ME } from '../'
+import { MY_SUBJECTS } from '../'
 import { useMutation } from '@apollo/react-hooks'
 
 const CREATE_COURSE = gql`
@@ -18,7 +18,7 @@ const CreateCourse = ({ subject }) => {
 	const [active, setActive] = useState(false)
 	const [name, setName] = useState('')
 	const [createCourse] = useMutation(CREATE_COURSE, {
-		refetchQueries: [{ query: ME }],
+		refetchQueries: [{ query: MY_SUBJECTS }],
 	})
 
 	const create = async () => {

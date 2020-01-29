@@ -4,24 +4,17 @@ import { useMutation } from '@apollo/react-hooks'
 import { GET_TOLEARN_NOTE } from './'
 
 const DELETE_TOLEARN_NOTE = gql`
-	mutation DeleteTolearnNote($id: Int!) {
-		deleteTolearnNote(
-			id: $id
-		) {
-			success,
-			id
+	mutation DeleteToLearnNote($id: Int!) {
+		deleteToLearnNote(id: $id) {
+			success
 		}
 	}
 `
 
 const EDIT_TOLEARN_NOTE = gql`
-	mutation EditTolearnNote($id: Int!, $content: String!) {
-		editTolearnNote(
-			id: $id,
-			content: $content
-		) {
-			id,
-			success
+	mutation UpdateToLearnNote($updatedToLearnNote: UpdatedToLearnNote) {
+		updateToLearnNote(updatedToLearnNote: $updatedToLearnNote) {
+			id
 		}
 	}
 `
@@ -44,10 +37,10 @@ const ShowTolearnNote = ({ tolearnNote, courseId }) => {
 
 	const save = async () => {
 		await editTolearnNote({
-			variables: {
+			variables: { updatedToLearnNote: {
 				id: tolearnNote.id,
 				content: newContent,
-			},
+			} },
 		})
 		setEditmode(false)
 	}
