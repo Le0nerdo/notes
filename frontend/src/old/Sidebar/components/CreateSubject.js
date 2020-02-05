@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import gql from 'graphql-tag'
-import { MY_SUBJECTS } from '../'
+import { MY_SUBJECTS } from '..'
 import { useMutation } from '@apollo/react-hooks'
 
 const CREATE_SUBJECT = gql`

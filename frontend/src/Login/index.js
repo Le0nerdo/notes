@@ -70,7 +70,7 @@ const Login = () => {
 	}
 
 	return (
-		<div>
+		<div style={{ gridArea: 'c' }}>
 			<h2>Login</h2>
 			<form onSubmit={handleSubmit}>
 				Username:<br />

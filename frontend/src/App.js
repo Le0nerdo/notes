@@ -1,9 +1,10 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import Topbar from './components/Topbar'
-import Home from './scenes/Home'
-import Login from './scenes/Login'
-import Notes from './scenes/Notes'
+import './App.css'
+import Header from './components/Header'
+import Home from './Home'
+import Login from './Login'
+import Notes from './Notes'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
@@ -18,7 +19,7 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
-			<Topbar />
+			<Header />
 			<Switch>
 				<Route exact path='/'>
 					<Home />

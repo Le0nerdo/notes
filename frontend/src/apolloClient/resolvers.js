@@ -4,6 +4,7 @@ export const typeDefs = gql`
 	extend type Query{
 		isLoggedin: Boolean!
 		filter: Filter!
+		sidebar: Boolean!
 	}
 
 	extend type Mutation{
@@ -12,6 +13,7 @@ export const typeDefs = gql`
 			subject: String
 			course: String
 		): Boolean
+		toggleSidebar: null
 	}
 
 	extend type Filter{
@@ -35,6 +37,13 @@ export const resolvers = {
 			` }).filter
 			const filter = { ...old, ...args }
 			cache.writeData({ data: { filter } })
+			return null
+		},
+		toggleSidebar: (_, __, { cache }) => {
+			const old = cache.readQuery({ query: gql`
+				{ sidebar @client }
+			` }).sidebar
+			cache.writeData({ data: { sidebar: !old } })
 			return null
 		},
 	},
