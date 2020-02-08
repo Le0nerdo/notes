@@ -58,9 +58,39 @@ const mySubjects = async (_, __, { user, dataSources }) => {
 	}
 }
 
+const course = async (_, args, { user, dataSources }) => {
+	if (!user) throw new AuthenticationError('Not authenticated.')
+	try {
+		const { rows } = await dataSources.db.getCourse(args)
+		if (!rows[0]) return null
+		return {
+			...rows[0],
+			subjects: rows.slice(1),
+		}
+	} catch (error) {
+		unexpectedError(error)
+	}
+}
+
+const subject = async (_, args, { user, dataSources }) => {
+	if (!user) throw new AuthenticationError('Not authenticated.')
+	try {
+		const { rows } = await dataSources.db.getSubject(args)
+		if (!rows[0]) return null
+		return {
+			...rows[0],
+			courses: rows.slice(1),
+		}
+	} catch (error) {
+		unexpectedError(error)
+	}
+}
+
 module.exports = { courseSubjectResolvers: [{
 	Query: {
 		mySubjects,
+		course,
+		subject,
 	},
 	Mutation: {
 		createSubject,

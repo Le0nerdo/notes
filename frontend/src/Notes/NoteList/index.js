@@ -1,14 +1,28 @@
 import React from 'react'
 import useSearch from '../../hooks/useSearch'
 import { useParams } from 'react-router-dom'
-import { SCHOOL_NOTES } from './requests'
+import { SCHOOL_NOTES, SHARED_SCHOOL_NOTES } from './requests'
 import { useQuery } from '@apollo/react-hooks'
+import NotePreview from './NotePreview'
 
 const NoteList = ({ subject, course, shared }) => {
-	const [page, setPage] = useSearch('page')
+	const [page/*, setPage*/] = useSearch('page')
 	const { id } = useParams()
-	const select = subject ? 'bySubject' : course ? 'byCourse' : shared ? 'shared' : 'all'
-	const { loading, data, error } = useQuery(SCHOOL_NOTES['all'](id))
+	const { loading, data, error } = useQuery(
+		shared ? SHARED_SCHOOL_NOTES : SCHOOL_NOTES,
+		{
+			variables: {
+				page: page ? parseInt(page) : null,
+				subject: subject ? parseInt(id) : null,
+				course: course ? parseInt(id) : null,
+			},
+		},
+	)
+
+	/*const { loading: loadingSC, data: dataSC, error: errorSC } = useQuery(
+		SUBJECT,
+		{ variables: { id: parseInt(id) } },
+	)*/
 
 	const style = {
 		gridArea: 'c',
@@ -18,21 +32,14 @@ const NoteList = ({ subject, course, shared }) => {
 
 	if (loading) return <div style={style}>Loading...</div>
 	if (error) return <div style={style}>Error...</div>
-
 	return (
 		<div style={style}>
-			Page {page} <br />
-			Selected: {select}<br />
-			With id: {id}<br />
-			<button onClick={() => setPage(22)}>
-				hi
-			</button>
-			{data.schoolNotes.map(n => (
-				<div key={n.id}>
-					<h1>{n.header}</h1>
-					<p>{n.content}</p>
-				</div>
-			))}
+			<h1>{'hehe XD'}</h1>
+			<div className='NoteListContainer'>
+				{data[shared ? 'sharedSchoolNotes' : 'schoolNotes'].map(n => (
+					<NotePreview key={n.id} {...n} />
+				))}
+			</div>
 		</div>
 	)
 }

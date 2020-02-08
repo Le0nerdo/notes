@@ -1,16 +1,39 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express')
 const { unexpectedError } = require('../errors')
 
-const schoolNotes = async (_, __, { user, dataSources }) => {
+const schoolNote = async (_, args, { user, dataSources }) => {
 	if (!user) throw new AuthenticationError('Not authenticated.')
 	try {
-		const { rows } = await dataSources.db.getSchoolNotes()
+		const { rows } = await dataSources.db.getSchoolNote(args)
+		if (rows.length < 1) throw { message: 'no note' }
+		return {
+			id: rows[0].id,
+			header: rows[0].name,
+			content: rows[0].content,
+			owner: user.username,
+			permission: true,
+			courses: rows.slice(1).filter(r => r.content === 'course'),
+			subjects: rows.slice(1).filter(r => r.content === 'subject'),
+		}
+	} catch (error) {
+		if (error.message === 'no note') {
+			throw new UserInputError('Note not found.')
+		}
+		unexpectedError(error)
+	}
+}
+
+const schoolNotes = async (_, args, { user, dataSources }) => {
+	if (!user) throw new AuthenticationError('Not authenticated.')
+	try {
+		const { rows } = await dataSources.db.getSchoolNotes(args)
 		const rawNotes = rows.filter(r => r.note_id === '0')
 		return rawNotes.map(n => ({
 			id: n.id,
 			owner: user.username,
 			header: n.name,
 			content: n.content,
+			permission: true,
 			subjects: rows.filter(r => (r.note_id === n.id && r.content === 'subject')),
 			courses: rows.filter(r => (r.note_id === n.id && r.content === 'course')),
 		}))
@@ -30,6 +53,7 @@ const createSchoolNote = async (_, { newSchoolNote }, { user, dataSources }) => 
 			header: rows[0].name,
 			content: rows[0].content,
 			owner: user.username,
+			permission: true,
 			courses: rows.slice(1).filter(r => r.content === 'course'),
 			subjects: rows.slice(1).filter(r => r.content === 'subject'),
 		}
@@ -53,6 +77,7 @@ const updateSchoolNote = async (_, { updatedSchoolNote }, { user, dataSources })
 			header: rows[0].name,
 			content: rows[0].content,
 			owner: user.username,
+			permission: true,
 			courses: rows.slice(1).filter(r => r.content === 'course'),
 			subjects: rows.slice(1).filter(r => r.content === 'subject'),
 		}
@@ -80,6 +105,7 @@ const deleteSchoolNote = async (_, { id }, { user, dataSources }) => {
 
 module.exports = { schoolNoteResolvers: [{
 	Query: {
+		schoolNote,
 		schoolNotes,
 	},
 	Mutation: {

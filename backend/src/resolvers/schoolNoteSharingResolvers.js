@@ -1,16 +1,17 @@
 const { AuthenticationError, UserInputError } = require('apollo-server-express')
 const { unexpectedError } = require('../errors')
 
-const sharedSchoolNotes = async (_, __, { user, dataSources }) => {
+const sharedSchoolNotes = async (_, args, { user, dataSources }) => {
 	if (!user) throw new AuthenticationError('Not authenticated.')
 	try {
-		const { rows } = await dataSources.db.getSharedSchoolNotes()
+		const { rows } = await dataSources.db.getSharedSchoolNotes(args)
 		const rawNotes = rows.filter(r => r.note_id === '0')
 		return rawNotes.map(n => ({
 			id: n.id,
 			owner: n.owner,
 			header: n.name,
 			content: n.content,
+			permission: false,
 			subjects: rows.filter(r => (r.note_id === n.id && r.content === 'subject')),
 			courses: rows.filter(r => (r.note_id === n.id && r.content === 'course')),
 		}))

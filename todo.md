@@ -3,6 +3,13 @@
 make/update frontend
 
 
+## backendstuff
+make errorhandling and update test for resolvers schoolNoteos and sharedSchoolNotes
+
+test for course and subject queries
+
+tests for schoolNote query
+
 # dept
 can create notes on others courses. For now making everything to work pretty much only in best case scenaria, because need to know if it even works. after getting stuff to work need to start thinking about testing.
 
@@ -25,3 +32,5 @@ one place for error messages so they are consistent (backend)
 # db stuff
 
 unique tolearn_note course_id (and errorhandling for it in backend)
+
+some kind of timestamp for added/last edited

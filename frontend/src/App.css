@@ -8,3 +8,10 @@
 		"h h"
 		"m c";
 }
+
+.NoteListContainer {
+	padding: 0.5vw;
+	display: grid;
+	grid-gap: 0.5vw;
+	grid-template-columns: 1fr 1fr;
+}

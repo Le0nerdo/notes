@@ -40,8 +40,42 @@ const getSubjects = `
 	WHERE cs.owner_id=$1
 `
 
+const getSubject = `
+	WITH sub AS (
+		SELECT id, name
+		FROM subject
+		WHERE owner_id=$1 AND id=$2
+	)
+	SELECT id, name
+	FROM sub
+	UNION ALL
+	SELECT c.id AS id, c.name AS name
+	FROM course c
+	JOIN course_subject cs ON cs.course_id=c.id
+	WHERE c.owner_id=$1 AND cs.subject_id=(SELECT id FROM sub)
+	GROUP BY c.id
+`
+
+const getCourse = `
+		WITH cou AS (
+			SELECT id, name
+			FROM course
+			WHERE owner_id=$1 AND id=$2
+		)
+		SELECT id, name
+		FROM cou
+		UNION ALL
+		SELECT s.id AS id, s.name AS name
+		FROM subject s
+		JOIN course_subject cs ON cs.subject_id=s.id
+		WHERE s.owner_id=$1 AND cs.course_id=(SELECT id FROM cou)
+		GROUP BY  s.id
+`
+
 module.exports = { courseSubjectQueries: {
 	createSubject,
 	createCourse,
 	getSubjects,
+	getSubject,
+	getCourse,
 } }
