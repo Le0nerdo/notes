@@ -22,8 +22,8 @@ const SchoolNote = gql`
 		header: String!
 		content: String!
 		permission: Boolean!
-		subjects: [NestedSubject!]!
-		courses: [NestedCourse!]!
+		subjects: [Subject!]!
+		courses: [Course!]!
 	}
 
 	input NewSchoolNote {

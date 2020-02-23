@@ -26,4 +26,5 @@
 |28.1.-29.1.|5		|finished redoing resolvers
 |29.1.		|1		|updated frontend to work somehow with new backend
 |29.1.-5.2	|11		|figuring out how to structure frontend
-|6.2-7.1	|7		|frontend structure progress
+|6.2-7.2	|7		|frontend structure progress
+|21.2-24.2	|10		|added subject and course managment

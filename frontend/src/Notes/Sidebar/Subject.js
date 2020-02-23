@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory, useRouteMatch, Route } from 'react-router-dom'
 import Course from './Course'
+import CreateCourse from './CreateCourse'
 
 const Subject = ({ name, id, courses }) => {
 	const history = useHistory()
@@ -24,6 +25,7 @@ const Subject = ({ name, id, courses }) => {
 				{courses.map(c => c.name === '' ? null : (
 					<Course key={c.id} {...c}/>
 				))}
+				<CreateCourse subject={id} />
 			</Route>
 		</>
 	)

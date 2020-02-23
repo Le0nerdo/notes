@@ -36,6 +36,16 @@ class PostgresDataSource extends DataSource {
 		return await this.query(SQL.createCourse(subjects), args)
 	}
 
+	async deleteSubject({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.deleteSubject, args)
+	}
+
+	async deleteCourse({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.deleteCourse, args)
+	}
+
 	async getSubject({ id }) {
 		const args = [this.user.id, id]
 		return await this.query(SQL.getSubject, args)

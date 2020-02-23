@@ -1,7 +1,7 @@
 import React from 'react'
 import useSearch from '../../hooks/useSearch'
 import { useParams } from 'react-router-dom'
-import { SCHOOL_NOTES, SHARED_SCHOOL_NOTES } from './requests'
+import { SCHOOL_NOTES, SHARED_SCHOOL_NOTES } from '../requests'
 import { useQuery } from '@apollo/react-hooks'
 import NotePreview from './NotePreview'
 
@@ -19,27 +19,14 @@ const NoteList = ({ subject, course, shared }) => {
 		},
 	)
 
-	/*const { loading: loadingSC, data: dataSC, error: errorSC } = useQuery(
-		SUBJECT,
-		{ variables: { id: parseInt(id) } },
-	)*/
-
-	const style = {
-		gridArea: 'c',
-		height: '100%',
-		overflow: 'scroll',
-	}
-
-	if (loading) return <div style={style}>Loading...</div>
-	if (error) return <div style={style}>Error...</div>
+	if (loading) return <div>Loading...</div>
+	if (error) return <div>Error...</div>
+	const notes = data[shared ? 'sharedSchoolNotes' : 'schoolNotes']
 	return (
-		<div style={style}>
-			<h1>{'hehe XD'}</h1>
-			<div className='NoteListContainer'>
-				{data[shared ? 'sharedSchoolNotes' : 'schoolNotes'].map(n => (
-					<NotePreview key={n.id} {...n} />
-				))}
-			</div>
+		<div className='NoteListContainer'>
+			{notes.map(n => (
+				<NotePreview key={n.id} {...n} />
+			))}
 		</div>
 	)
 }

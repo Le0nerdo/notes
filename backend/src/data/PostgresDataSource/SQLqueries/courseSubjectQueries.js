@@ -32,12 +32,67 @@ const createCourse = (subjects) => `
 	JOIN subject s ON cs.subject_id=s.id
 `
 
+const deleteSubject = `
+	WITH subId AS (
+		SELECT id
+		FROM subject
+		WHERE owner_id=$1 AND id=$2 AND NOT name=''
+	), cou AS (
+		DELETE
+		FROM course_subject
+		WHERE owner_id=$1 AND subject_id=(SELECT id FROM subId)
+		RETURNING course_id as id
+	), empt AS (
+		DELETE
+		FROM course
+		WHERE owner_id=$1 AND id=(SELECT id FROM cou) AND name=''
+		RETURNING id, name
+	), sub AS (
+		DELETE
+		FROM subject
+		WHERE owner_id=$1 AND id=(SELECT id FROM subId)
+		RETURNING id, name
+	)
+	SELECT id, name
+	FROM sub
+	UNION ALL
+	SELECT id, name
+	FROM empt
+`
+
+const deleteCourse = `
+	WITH cou AS (
+		DELETE
+		FROM course
+		WHERE owner_id=$1 AND id=$2 AND NOT name=''
+		RETURNING id, name
+	)
+	SELECT id, name
+	FROM cou
+	UNION ALL
+	SELECT id, name
+	FROM subject
+	WHERE owner_id=$1 AND id IN (
+		SELECT subject_id
+		FROM course_subject
+		WHERE owner_id=$1 AND course_id=(SELECT id FROM cou)
+	)
+`
+
 const getSubjects = `
-	SELECT c.id course_id, c.name course_name, s.id subject_id, s.name subject_name
-	FROM course_subject cs
-	JOIN course c ON cs.course_id=c.id
-	JOIN subject s ON cs.subject_id=s.id
-	WHERE cs.owner_id=$1
+	WITH ori AS (
+		SELECT c.id course_id, c.name course_name, s.id subject_id, s.name subject_name
+		FROM course_subject cs
+		JOIN course c ON cs.course_id=c.id
+		JOIN subject s ON cs.subject_id=s.id
+		WHERE cs.owner_id=$1
+	)
+	SELECT O.course_id, O.course_name, O.subject_id, O.subject_name, COALESCE((
+		SELECT COUNT(*)
+		FROM school_note_course N
+		WHERE N.course_id=O.course_id
+	), 0) AS note_count
+	FROM ori O
 `
 
 const getSubject = `
@@ -75,6 +130,8 @@ const getCourse = `
 module.exports = { courseSubjectQueries: {
 	createSubject,
 	createCourse,
+	deleteSubject,
+	deleteCourse,
 	getSubjects,
 	getSubject,
 	getCourse,

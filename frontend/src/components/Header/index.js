@@ -30,17 +30,17 @@ const Header = () => {
 	return (
 		<nav style={style}>
 			<Route path='/n'>
-				<Button onClick={toggleSidebar}>Sidebar</Button>
+				<Button onClick={toggleSidebar} big>Sidebar</Button>
 			</Route>
-			<Button onClick={() => history.push('/home')}>Home</Button>
-			<Button onClick={() => history.push('/n')}>Notes</Button>
+			<Button onClick={() => history.push('/home')} big>Home</Button>
+			<Button onClick={() => history.push('/n')} big>Notes</Button>
 			{loading
 				? <span style={{ marginLeft: 'auto' }}></span>
 				: <span style={{ marginLeft: 'auto', marginTop: '1em' }}>Logged in as {data.me.username} </span>
 			}
 			{isLoggedIn
-				? <Button onClick={logout}>Logout</Button>
-				: <Button onClick={() => history.push('/login')}>Login</Button>
+				? <Button onClick={logout} big>Logout</Button>
+				: <Button onClick={() => history.push('/login')} big>Login</Button>
 			}
 		</nav>
 	)

@@ -9,29 +9,22 @@ const CourseSubject = gql`
 
 	extend type Mutation {
 		createSubject(name: String!): Subject
+		deleteSubject(id: Int!): Subject
 		createCourse(subjects: [Int!]!, name: String!): Course
+		deleteCourse(id: Int!): Course
 	}
 
 	type Subject {
 		id: Int!
 		name: String!
-		courses: [NestedCourse!]!
+		courses: [Course!]!
 	}
 
 	type Course {
 		id: Int!
 		name: String!
-		subjects: [NestedSubject!]!
-	}
-
-	type NestedSubject {
-		id: Int!
-		name: String!
-	}
-
-	type NestedCourse {
-		id: Int!
-		name: String!
+		noteCount: Int!
+		subjects: [Subject!]!
 	}
 `
 

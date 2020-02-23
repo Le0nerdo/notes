@@ -1,27 +1,25 @@
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import { MY_SUBJECTS } from './requests'
+import { useHistory } from 'react-router-dom'
 import Subject from './Subject'
+import CreateSubject from './CreateSubject'
 
-const Sidebar = () => {
-	const { loading, error, data } = useQuery(MY_SUBJECTS)
+const Sidebar = ({ data }) => {
+	const history = useHistory()
 
 	const style = {
+		width: '20vw',
 		gridArea: 'm',
 		backgroundColor: 'lightgray',
 		overflowX: 'hidden',
 	}
 
-	if (loading) return <div style={style}>Loading...</div>
-
-	if (error) {
-		console.log(error)
-		return <div style={style}>Error!</div>
-	}
+	const recentStyle = { marginTop: 0 }
 
 	return (
 		<div style={style}>
+			<h2 style={recentStyle} onClick={() => history.push('/n')}>Recent</h2>
 			{data.mySubjects.map(s => <Subject key={s.id} {...s} />)}
+			<CreateSubject />
 		</div>
 	)
 }

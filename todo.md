@@ -2,13 +2,18 @@
 
 make/update frontend
 
+delete subject/course
 
 ## backendstuff
 make errorhandling and update test for resolvers schoolNoteos and sharedSchoolNotes
 
 test for course and subject queries
 
+test fro course and subject delete
+
 tests for schoolNote query
+
+noteCount property for course not always there
 
 # dept
 can create notes on others courses. For now making everything to work pretty much only in best case scenaria, because need to know if it even works. after getting stuff to work need to start thinking about testing.

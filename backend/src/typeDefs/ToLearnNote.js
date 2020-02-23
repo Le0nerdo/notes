@@ -24,8 +24,8 @@ const ToLearnNote = gql`
 	type ToLearnNote {
 		id: Int!
 		content: String!
-		courses: [NestedCourse!]!
-		subjects: [NestedSubject!]!
+		courses: [Course!]!
+		subjects: [Subject!]!
 	}
 `
 

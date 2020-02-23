@@ -1,8 +1,9 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 
 const Course = ({ name, id }) => {
 	const history = useHistory()
+	const match = useRouteMatch()
 
 	const style = {
 		backgroundColor: 'lightgray',
@@ -15,7 +16,7 @@ const Course = ({ name, id }) => {
 
 	if (name === '') return null
 	return (
-		<div style={style} onClick={() => history.push(`/n/c${id}`)}>
+		<div style={style} onClick={() => history.push(`${match.url}/c${id}`)}>
 			{name}
 		</div>
 	)
