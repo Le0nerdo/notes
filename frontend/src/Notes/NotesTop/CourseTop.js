@@ -1,30 +1,30 @@
 import React from 'react'
 import { useParams, Redirect, useHistory } from 'react-router-dom'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { COURSE_DETAILS, DELETE_COURSE, MY_SUBJECTS } from '../requests'
+import { DELETE_COURSE, MY_SUBJECTS } from '../requests'
+import ToLearnNote from './ToLearnNote'
 
 const CourseTop = () => {
-	const { id } = useParams()
+	const { sid, id } = useParams()
 	const client = useApolloClient()
 	const history = useHistory()
 	const [deleteCourse] = useMutation(DELETE_COURSE, {
 		update(cache, { data: { deleteCourse } }) {
 			const { mySubjects } = cache.readQuery({ query: MY_SUBJECTS })
 			const subjectIds = deleteCourse.subjects.map(s => s.id)
-			cache.writeData({
+			cache.writeQuery({
 				query: MY_SUBJECTS,
 				data: { mySubjects: mySubjects.map(s => {
 					if (!subjectIds.includes(s.id)) return s
-					return { ...s, courses: s.courses.filter(c => c.id === deleteCourse.id) }
+					return { ...s, courses: s.courses.filter(c => c.id !== deleteCourse.id) }
 				}) },
 			})
 		},
 	})
 
-	const course = client.readFragment({
-		id: `Course:${id}`,
-		fragment: COURSE_DETAILS,
-	})
+	const course = client.readQuery({ query: MY_SUBJECTS })
+		.mySubjects.find(s => s.id === parseInt(sid))
+		.courses.find(c => c.id === parseInt(id))
 
 	if (!course) return <Redirect to={'/n'} />
 
@@ -37,8 +37,9 @@ const CourseTop = () => {
 
 	return (
 		<div>
-			<h1>Course: {course.name}</h1>
+			<h1 style={{ marginLeft: '13%' }}>Course: {course.name}</h1>
 			{course.noteCount === 0 && <button onClick={removeCourse}>Delete Course</button>}
+			{course && <ToLearnNote course={course} />}
 		</div>
 	)
 }

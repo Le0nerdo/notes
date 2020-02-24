@@ -5,6 +5,9 @@ export const COURSE_DETAILS = gql`
 		id
 		name
 		noteCount
+		subjects {
+			id
+		}
 	}
 `
 
@@ -97,6 +100,41 @@ export const DELETE_COURSE = gql`
 			subjects {
 				id
 			}
+		}
+	}
+`
+
+export const TO_LEARN_NOTE = gql`
+	query ToLearnNote($course: Int!) {
+		toLearnNote(course: $course) {
+			id
+			content
+		}
+	}
+`
+
+export const CREATE_TO_LEARN_NOTE = gql`
+	mutation CreateToLearnNote($newToLearnNote: NewToLearnNote!) {
+		createToLearnNote(newToLearnNote: $newToLearnNote) {
+			id
+			content
+		}
+	}
+`
+
+export const EDIT_TO_LEARN_NOTE = gql`
+	mutation UpdateToLearnNote($updatedToLearnNote: UpdatedToLearnNote) {
+		updateToLearnNote(updatedToLearnNote: $updatedToLearnNote) {
+			id
+			content
+		}
+	}
+`
+
+export const DELETE_TO_LEARN_NOTE = gql`
+	mutation DeleteToLearnNote($id: Int!) {
+		deleteToLearnNote(id: $id) {
+			success
 		}
 	}
 `

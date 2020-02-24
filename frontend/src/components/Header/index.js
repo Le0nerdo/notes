@@ -8,7 +8,7 @@ import gql from 'graphql-tag'
 
 const Header = () => {
 	const { data: { isLoggedIn } } = useQuery(IS_LOGGED_IN)
-	const { data, loading } = useQuery(ME)
+	const { data, loading, error } = useQuery(ME)
 	const [toggleSidebar] = useMutation(gql`mutation { toggleSidebar @client}`)
 	const history = useHistory()
 	const client = useApolloClient()
@@ -34,9 +34,11 @@ const Header = () => {
 			</Route>
 			<Button onClick={() => history.push('/home')} big>Home</Button>
 			<Button onClick={() => history.push('/n')} big>Notes</Button>
-			{loading
+			{(loading || error)
 				? <span style={{ marginLeft: 'auto' }}></span>
-				: <span style={{ marginLeft: 'auto', marginTop: '1em' }}>Logged in as {data.me.username} </span>
+				: isLoggedIn
+					? <span style={{ marginLeft: 'auto', marginTop: '1em' }}>Logged in as {data.me.username} </span>
+					: <span style={{ marginLeft: 'auto', marginTop: '1em' }}>Not Logged in </span>
 			}
 			{isLoggedIn
 				? <Button onClick={logout} big>Logout</Button>

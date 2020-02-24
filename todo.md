@@ -1,10 +1,16 @@
 # ToDo
+CHANGE TOLEARN NOTE TO CASCADE ON SUBJECT DELETE
+
 
 make/update frontend
 
 delete subject/course
 
 ## backendstuff
+deleteToLearnNote response is not the note
+
+destructuring undefined maindata (like 'updatedToLearnNote' ) is handled poorly
+
 make errorhandling and update test for resolvers schoolNoteos and sharedSchoolNotes
 
 test for course and subject queries

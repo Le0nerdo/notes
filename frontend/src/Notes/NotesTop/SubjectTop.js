@@ -1,7 +1,8 @@
 import React from 'react'
 import { useParams, Redirect, useHistory } from 'react-router-dom'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { SUBJECT_DETAILS, DELETE_SUBJECT, MY_SUBJECTS } from '../requests'
+import { DELETE_SUBJECT, MY_SUBJECTS } from '../requests'
+import ToLearnNote from './ToLearnNote'
 
 const SubjectTop = () => {
 	const { id } = useParams()
@@ -18,12 +19,11 @@ const SubjectTop = () => {
 		onError: (error) => console.error(error),
 	})
 
-	const subject = client.readFragment({
-		id: `Subject:${id}`,
-		fragment: SUBJECT_DETAILS,
-	})
+	const subject = client.readQuery({ query: MY_SUBJECTS })
+		.mySubjects.find(s => s.id === parseInt(id))
 
 	if (!subject) return <Redirect to={'/n'} />
+	const mainCourse = subject.courses.find(c => c.name === '')
 
 	const removeSubject = () => {
 		const warningMessage = `Do you really want to delete subject '${subject.name}'?`
@@ -34,8 +34,9 @@ const SubjectTop = () => {
 
 	return (
 		<div>
-			<h1>Subject: {subject.name}</h1>
+			<h1 style={{ marginLeft: '13%' }}>Subject: {subject.name}</h1>
 			{subject.courses.length === 1 && <button onClick={removeSubject}>Delete Subject</button>}
+			{mainCourse && <ToLearnNote course={mainCourse} />}
 		</div>
 	)
 }

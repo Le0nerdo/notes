@@ -13,11 +13,20 @@ const Sidebar = ({ data }) => {
 		overflowX: 'hidden',
 	}
 
-	const recentStyle = { marginTop: 0 }
+	const allNotesStyle = {
+		backgroundColor: '#ADFF2F',
+		padding: '0.1em',
+		border: 'solid',
+		margin: '0.3em',
+		borderColor: 'grey',
+	}
 
 	return (
 		<div style={style}>
-			<h2 style={recentStyle} onClick={() => history.push('/n')}>Recent</h2>
+			<div
+				style={allNotesStyle}
+				onClick={() => history.push('/n')}
+			>All</div>
 			{data.mySubjects.map(s => <Subject key={s.id} {...s} />)}
 			<CreateSubject />
 		</div>

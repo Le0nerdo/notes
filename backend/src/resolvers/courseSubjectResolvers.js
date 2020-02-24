@@ -12,6 +12,7 @@ const createSubject = async (_, { name }, { user, dataSources }) => {
 			courses: [{
 				id: rows[0].course_id,
 				name: rows[0].course_name,
+				noteCount: 0,
 			}],
 		}
 	} catch (error) { unexpectedError(error) }
@@ -74,6 +75,7 @@ const deleteSubject = async (_, args, { user, dataSources }) => {
 			courses: [{
 				id: rows[0].id,
 				name: rows[0].name,
+				noteCount: 0,
 			}],
 		}
 	} catch (error) {
