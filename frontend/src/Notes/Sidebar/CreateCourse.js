@@ -28,7 +28,11 @@ const CreateCourse = ({ subject }) => {
 		margin: '0.3em',
 		marginLeft: '1em',
 		borderColor: 'gray',
-		width: '90%',
+	}
+
+	const buttonStyle = {
+		padding: '0.1em',
+		cursor: 'pointer',
 	}
 
 	const create = async () => {
@@ -38,11 +42,18 @@ const CreateCourse = ({ subject }) => {
 	}
 
 	return !active
-		? <button style={style} onClick={() => setActive(true)}>Create Course</button>
+		? <button
+			style={{ ...style, cursor: 'pointer' }}
+			onClick={() => setActive(true)}
+		>New Course</button>
 		: <div style={style}>
-			<input {...nameField} placeholder='Course name' style={{ width: '80%' }}/>
-			<button onClick={create}>Create</button>
-			<button onClick={() => setActive(false)}>Cancel</button>
+			<input
+				{...nameField}
+				placeholder='Course name'
+				style={{ width: '90%' }}
+			/>
+			<button style={buttonStyle} onClick={create}>Create</button>
+			<button style={buttonStyle} onClick={() => setActive(false)}>Cancel</button>
 		</div>
 }
 

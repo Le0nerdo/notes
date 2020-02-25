@@ -39,7 +39,7 @@
   "jest": {
     "globals": {
       "testEnvironment": "node",
-      "NODE_ENV": "test"
+	  "NODE_ENV": "test"
     }
   }
 }

@@ -19,6 +19,7 @@ const Sidebar = ({ data }) => {
 		border: 'solid',
 		margin: '0.3em',
 		borderColor: 'grey',
+		cursor: 'pointer',
 	}
 
 	return (

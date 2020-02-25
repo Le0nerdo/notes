@@ -3,6 +3,7 @@ import { useParams, Redirect, useHistory } from 'react-router-dom'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { DELETE_SUBJECT, MY_SUBJECTS } from '../requests'
 import ToLearnNote from './ToLearnNote'
+import { deleteStyle, headerStyle } from './style'
 
 const SubjectTop = () => {
 	const { id } = useParams()
@@ -34,8 +35,13 @@ const SubjectTop = () => {
 
 	return (
 		<div>
-			<h1 style={{ marginLeft: '13%' }}>Subject: {subject.name}</h1>
-			{subject.courses.length === 1 && <button onClick={removeSubject}>Delete Subject</button>}
+			<div style={headerStyle}>
+				<h1 style={{ display: 'inline' }}>Subject: {subject.name}</h1>
+				{subject.courses.length === 1 && <button
+					style={deleteStyle}
+					onClick={removeSubject}
+				>Delete Subject</button>}
+			</div>
 			{mainCourse && <ToLearnNote course={mainCourse} />}
 		</div>
 	)

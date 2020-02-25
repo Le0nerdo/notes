@@ -12,6 +12,7 @@ const Course = ({ name, id }) => {
 		margin: '0.3em',
 		marginLeft: '1em',
 		borderColor: 'gray',
+		cursor: 'pointer',
 	}
 
 	if (name === '') return null

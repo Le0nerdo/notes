@@ -22,7 +22,7 @@ const getSchoolNote = `
 
 const getSchoolNotes = ({ subject, course }) => {
 	const withSubjectFilter = `
-		SELECT n.id AS id, n.header AS header, n.content AS content
+		SELECT n.id AS id, n.header AS header
 		FROM school_note n
 		JOIN school_note_course snc ON snc.note_id=n.id
 		JOIN course_subject cs ON cs.course_id=snc.course_id
@@ -33,7 +33,7 @@ const getSchoolNotes = ({ subject, course }) => {
 	`
 
 	const withCourseFilter = `
-		SELECT n.id AS id, n.header AS header, n.content AS content
+		SELECT n.id AS id, n.header AS header
 		FROM school_note n
 		JOIN school_note_course snc ON snc.note_id=n.id
 		WHERE n.owner_id=$1 AND snc.course_id=$3
@@ -43,7 +43,7 @@ const getSchoolNotes = ({ subject, course }) => {
 	`
 
 	const withAll = `
-		SELECT id, header, content
+		SELECT id, header
 		FROM school_note
 		WHERE owner_id=$1
 		LIMIT 10
@@ -54,7 +54,7 @@ const getSchoolNotes = ({ subject, course }) => {
 		WITH note AS (
 			${!(subject || course) ? withAll : subject ? withSubjectFilter : withCourseFilter}
 		)
-		SELECT id, header AS name, content, 0 AS note_id
+		SELECT id, header AS name, 'note' AS content, 0 AS note_id
 		FROM note
 		UNION ALL
 		SELECT c.id AS id, c.name AS name, 'course' AS content, n.id AS note_id
@@ -126,10 +126,17 @@ const deleteSchoolNote = `
 	RETURNING id
 `
 
+const getSchoolNoteContent = `
+	SELECT content
+	FROM school_note
+	WHERE owner_id=$1 AND id=$2
+`
+
 module.exports = { schoolNoteQueries: {
 	getSchoolNote,
 	getSchoolNotes,
 	createSchoolNote,
 	updateSchoolNote,
 	deleteSchoolNote,
+	getSchoolNoteContent,
 } }

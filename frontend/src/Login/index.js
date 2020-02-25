@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useMutation, useApolloClient } from '@apollo/react-hooks'
 
 import gql from 'graphql-tag'
+import LoginErrorMessage from './LoginErrorMessage'
 
 const LOGIN = gql`
 	mutation Login($credentials: Credentials!) {
@@ -27,8 +28,19 @@ const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [email, setEmail] = useState('')
-	const [login] = useMutation(LOGIN)
-	const [createUser] = useMutation(CREATE_USER)
+	const [error, setError] = useState('')
+	const [login] = useMutation(LOGIN, {
+		onError(error) {
+			setError('')
+			setError(error.message.split(':')[1])
+		},
+	})
+	const [createUser] = useMutation(CREATE_USER, {
+		onError(error) {
+			setError('')
+			setError(error.message.split(':')[1])
+		},
+	})
 	const client = useApolloClient()
 
 	const handleSubmit = async (event) => {
@@ -70,8 +82,9 @@ const Login = () => {
 	}
 
 	return (
-		<div style={{ gridArea: 'c' }}>
+		<div style={{ gridArea: 'c', textAlign: 'center' }}>
 			<h2>Login</h2>
+			<LoginErrorMessage error={error} />
 			<form onSubmit={handleSubmit}>
 				Username:<br />
 				<input

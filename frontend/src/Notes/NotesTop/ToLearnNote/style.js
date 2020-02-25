@@ -13,3 +13,11 @@ export const textAreaStyle = {
 	fontSize: '1.3em',
 	color: 'white',
 }
+
+export const saveButtonStyle = {
+	backgroundColor: 'green',
+}
+
+export const deleteButtonStyle = {
+	backgroundColor: 'red',
+}

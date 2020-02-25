@@ -17,7 +17,12 @@ const CreateSubject = () => {
 	})
 
 	const style = {
-		width: '90%',
+		color: 'blue',
+		backgroundColor: 'white',
+		padding: '0.1em',
+		border: 'solid',
+		margin: '0.3em',
+		borderColor: 'grey',
 	}
 
 	const create = async () => {
@@ -27,11 +32,21 @@ const CreateSubject = () => {
 	}
 
 	return !active
-		? <button onClick={() => setActive(true)}>New subject</button>
-		: <div>
-			<input {...nameField} placeholder='Subject name' style={style}/>
-			<button onClick={create}>Create</button>
-			<button onClick={() => setActive(false)}>Cancel</button>
+		? <button style={style} onClick={() => setActive(true)}>New subject</button>
+		: <div style={style}>
+			<input
+				{...nameField}
+				placeholder='Subject name'
+				style={{ width: '90%' }}
+			/>
+			<button
+				style={{ cursor: 'pointer' }}
+				onClick={create}
+			>Create</button>
+			<button
+				style={{ cursor: 'pointer' }}
+				onClick={() => setActive(false)}
+			>Cancel</button>
 		</div>
 }
 

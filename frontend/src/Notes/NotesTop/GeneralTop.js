@@ -2,6 +2,7 @@ import React from 'react'
 import { useApolloClient } from 'react-apollo'
 import { MY_SUBJECTS } from '../requests'
 import ToLearnNote from './ToLearnNote'
+import { headerStyle } from './style'
 
 const GeneralTop = () => {
 	const client = useApolloClient()
@@ -11,7 +12,9 @@ const GeneralTop = () => {
 
 	return (
 		<div>
-			<h1 style={{ marginLeft: '13%' }}>All notes</h1>
+			<div style={headerStyle}>
+				<h1 style={{ display: 'inline' }}>All notes</h1>
+			</div>
 			{course && <ToLearnNote course={course} />}
 		</div>
 	)

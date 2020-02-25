@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { style } from './style'
+import { style, saveButtonStyle, deleteButtonStyle } from './style'
 import TextArea from './TextArea'
 import { useMutation } from 'react-apollo'
 import { EDIT_TO_LEARN_NOTE, TO_LEARN_NOTE, DELETE_TO_LEARN_NOTE } from '../../requests'
@@ -16,6 +16,7 @@ const ViewToLearnNote = ({ data: { toLearnNote }, course }) => {
 			})
 		},
 	})
+
 	const [deleteToLearnNote] = useMutation(DELETE_TO_LEARN_NOTE, {
 		update(cache) {
 			cache.writeQuery({
@@ -41,6 +42,12 @@ const ViewToLearnNote = ({ data: { toLearnNote }, course }) => {
 		setEditmode(false)
 	}
 
+
+	const cancelEdit = () => {
+		setContent(toLearnNote.content)
+		setEditmode(false)
+	}
+
 	const removeToLearnNote = () => {
 		const warningMessage= 'Do you really want to delete ToLearnNote?'
 		if (!window.confirm(warningMessage)) return
@@ -57,8 +64,18 @@ const ViewToLearnNote = ({ data: { toLearnNote }, course }) => {
 			/><br />
 			{editmode &&
 			<>
-				<button onClick={saveToLearnNote}>Save</button>
-				<button onClick={removeToLearnNote}>Delete</button>
+				<button
+					style={saveButtonStyle}
+					onClick={saveToLearnNote}
+				>Save</button>
+				<button
+					style={deleteButtonStyle}
+					onClick={cancelEdit}
+				>Cancel</button>
+				<button
+					style={deleteButtonStyle}
+					onClick={removeToLearnNote}
+				>Delete</button>
 			</>}
 		</div>
 	)

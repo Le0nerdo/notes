@@ -32,7 +32,6 @@ const schoolNotes = async (_, args, { user, dataSources }) => {
 			id: n.id,
 			owner: user.username,
 			header: n.name,
-			content: n.content,
 			permission: true,
 			subjects: rows.filter(r => (r.note_id === n.id && r.content === 'subject')),
 			courses: rows.filter(r => (r.note_id === n.id && r.content === 'course')),
@@ -103,6 +102,18 @@ const deleteSchoolNote = async (_, { id }, { user, dataSources }) => {
 	}
 }
 
+const SchoolNote = {
+	content: async ({ id, content }, _, { dataSources }) => {
+		if (content) return content
+		try {
+			const { rows } = await dataSources.db.getSchoolNoteContent({ id })
+			return rows[0].content
+		} catch (error) {
+			unexpectedError(error)
+		}
+	},
+}
+
 module.exports = { schoolNoteResolvers: [{
 	Query: {
 		schoolNote,
@@ -113,4 +124,5 @@ module.exports = { schoolNoteResolvers: [{
 		updateSchoolNote,
 		deleteSchoolNote,
 	},
+	SchoolNote,
 }] }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useMutation } from 'react-apollo'
 import { CREATE_TO_LEARN_NOTE, TO_LEARN_NOTE } from '../../requests'
-import { style } from './style'
+import { style, saveButtonStyle, deleteButtonStyle } from './style'
 import TextArea from './TextArea'
 
 const CreateToLearnNote = ({ course }) => {
@@ -26,17 +26,30 @@ const CreateToLearnNote = ({ course }) => {
 		})
 	}
 
+	const setActiveStyle = {
+		border: '0.1em solid lightgray',
+	}
+
 	return !active
 		? <div>
-			<button style={style} onClick={() => setActive(true)}>Create ToLearnNote</button>
+			<button
+				style={{ ...style, ...setActiveStyle }}
+				onClick={() => setActive(true)}
+			>Create ToLearnNote</button>
 		</div>
 		: <div style={style}>
 			<TextArea
 				value={content}
 				onChange={({ target }) => setContent(target.value)}
 			/><br />
-			<button onClick={createNote}>Save</button>
-			<button onClick={() => setActive(false)}>Cancel</button>
+			<button
+				style={saveButtonStyle}
+				onClick={createNote}
+			>Save</button>
+			<button
+				style={deleteButtonStyle}
+				onClick={() => setActive(false)}
+			>Cancel</button>
 		</div>
 }
 

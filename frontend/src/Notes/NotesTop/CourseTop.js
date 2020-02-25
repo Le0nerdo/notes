@@ -3,6 +3,7 @@ import { useParams, Redirect, useHistory } from 'react-router-dom'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { DELETE_COURSE, MY_SUBJECTS } from '../requests'
 import ToLearnNote from './ToLearnNote'
+import { headerStyle, deleteStyle } from './style'
 
 const CourseTop = () => {
 	const { sid, id } = useParams()
@@ -37,8 +38,13 @@ const CourseTop = () => {
 
 	return (
 		<div>
-			<h1 style={{ marginLeft: '13%' }}>Course: {course.name}</h1>
-			{course.noteCount === 0 && <button onClick={removeCourse}>Delete Course</button>}
+			<div style={headerStyle}>
+				<h1 style={{ display: 'inline' }}>Course: {course.name}</h1>
+				{course.noteCount === 0 && <button
+					style={deleteStyle}
+					onClick={removeCourse}
+				>Delete Course</button>}
+			</div>
 			{course && <ToLearnNote course={course} />}
 		</div>
 	)
