@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import Sidebar from './Sidebar'
 import NoteList from './NoteList'
-import Note from './Note'
+import Note, { CreateNote } from './Note'
 import NotesTop from './NotesTop'
 import { MY_SUBJECTS } from './requests'
 
@@ -37,6 +37,15 @@ const Notes = () => {
 					</Route>
 					<Route path={`${match.url}/shared`}>
 						<NoteList shared />
+					</Route>
+					<Route path={`${match.url}/s:sid/c:id/newNote`}>
+						<CreateNote />
+					</Route>
+					<Route path={`${match.url}/s:sid/newNote`}>
+						<CreateNote />
+					</Route>
+					<Route path={`${match.url}/newNote`}>
+						<CreateNote />
 					</Route>
 					<Route path={`${match.url}/s:sid/c:id`}>
 						<NoteList course />

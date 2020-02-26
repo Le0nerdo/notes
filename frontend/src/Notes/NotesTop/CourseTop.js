@@ -1,14 +1,15 @@
 import React from 'react'
-import { useParams, Redirect, useHistory } from 'react-router-dom'
+import { useParams, Redirect, useHistory, useRouteMatch } from 'react-router-dom'
 import { useApolloClient, useMutation } from '@apollo/react-hooks'
 import { DELETE_COURSE, MY_SUBJECTS } from '../requests'
 import ToLearnNote from './ToLearnNote'
-import { headerStyle, deleteStyle } from './style'
+import { headerStyle, deleteStyle,createStyle } from './style'
 
 const CourseTop = () => {
 	const { sid, id } = useParams()
 	const client = useApolloClient()
 	const history = useHistory()
+	const match = useRouteMatch()
 	const [deleteCourse] = useMutation(DELETE_COURSE, {
 		update(cache, { data: { deleteCourse } }) {
 			const { mySubjects } = cache.readQuery({ query: MY_SUBJECTS })
@@ -44,6 +45,10 @@ const CourseTop = () => {
 					style={deleteStyle}
 					onClick={removeCourse}
 				>Delete Course</button>}
+				<button
+					style={createStyle}
+					onClick={() => history.push(`${match.url}/newNote`)}
+				>Create Note</button>
 			</div>
 			{course && <ToLearnNote course={course} />}
 		</div>

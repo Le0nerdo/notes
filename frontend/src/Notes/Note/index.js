@@ -1,7 +1,9 @@
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useApolloClient } from '@apollo/react-hooks'
 import { SCHOOL_NOTE } from './requests'
 import { useParams } from 'react-router-dom'
+import NoteManager from './NoteManager'
+import { MY_SUBJECTS } from '../requests'
 
 const Note = () => {
 	const { id } = useParams()
@@ -12,14 +14,23 @@ const Note = () => {
 	if (loading) return <div>Loading...</div>
 	if (error) return <div>Error...</div>
 
-	const { header, content } = data.schoolNote
+	return <NoteManager schoolNote={data.schoolNote} />
+}
 
-	return (
-		<div>
-			<h2>{header}</h2>
-			<p>{content}</p>
-		</div>
-	)
+export const CreateNote = () => {
+	const { sid, id } = useParams()
+	const client = useApolloClient()
+	const course = client.readQuery({ query: MY_SUBJECTS })
+		.mySubjects.find(s => sid ? s.id === parseInt(sid): s.name === '')
+		.courses.find(c => id ? c.id === parseInt(id): c.name === '')
+
+	const schoolNote = {
+		header: 'New note',
+		courses: [course],
+		content: '',
+	}
+
+	return <NoteManager schoolNote={schoolNote} />
 }
 
 export default Note

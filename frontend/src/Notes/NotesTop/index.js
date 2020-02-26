@@ -13,10 +13,10 @@ const NotesTop = () => {
 				<Route exact path={url}>
 					<GeneralTop />
 				</Route>
-				<Route path={`${url}/s:sid/c:id`}>
+				<Route exact path={`${url}/s:sid/c:id`}>
 					<CourseTop />
 				</Route>
-				<Route path={`${url}/s:id`}>
+				<Route exact path={`${url}/s:id`}>
 					<SubjectTop />
 				</Route>
 			</Switch>

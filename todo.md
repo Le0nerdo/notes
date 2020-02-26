@@ -1,10 +1,12 @@
 # ToDo
-CHANGE TOLEARN NOTE TO CASCADE ON SUBJECT DELETE
 
+refresh noteslistnotes
+
+update notes subjects
+
+DELETE BUTTON WHEN ToLearnNote problem
 
 make/update frontend
-
-delete subject/course
 
 ## backendstuff
 deleteToLearnNote response is not the note

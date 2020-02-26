@@ -30,3 +30,4 @@
 |21.2-24.2	|10		|added subject and course managment
 |24.2		|4		|added toLearnNotes to new frontend
 |25.2		|3		|styling and fixing
+|26.2		|4		|starting schoolNote managment

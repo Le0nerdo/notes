@@ -10,3 +10,11 @@ export const deleteStyle = {
 	alignSelf: 'center',
 	cursor: 'pointer',
 }
+
+export const createStyle = {
+	backgroundColor: 'yellow',
+	marginLeft: 'auto',
+	height: '100%',
+	alignSelf: 'center',
+	cursor: 'pointer',
+}
