@@ -31,3 +31,4 @@
 |24.2		|4		|added toLearnNotes to new frontend
 |25.2		|3		|styling and fixing
 |26.2		|4		|starting schoolNote managment
+|27.2-29.2	|9		|Making note editor

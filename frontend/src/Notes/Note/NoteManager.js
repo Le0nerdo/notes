@@ -2,13 +2,20 @@ import React, { useState } from 'react'
 import NoteContent from './NoteContent'
 import { useMutation } from 'react-apollo'
 import { CREATE_SCHOOL_NOTE, DELETE_SCHOOL_NOTE, SCHOOL_NOTE, UPDATE_SCHOOL_NOTE } from './requests'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Prompt } from 'react-router-dom'
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
+import NoteHeader from './NoteHeader'
 
 const NoteManager = ({ schoolNote: original }) => {
+	const originalContent = original.content
+		? EditorState.createWithContent(
+			convertFromRaw(JSON.parse(original.content)),
+		)
+		: EditorState.createEmpty()
 	const history = useHistory()
 	const [header, setHeader] = useState(original.header)
 	const [courses, setCourses] = useState(original.courses.map(c => c.id))
-	const [content, setContent] = useState(original.content)
+	const [editorState, setEditorState] = useState(originalContent)
 	const [editmode, setEditmode] = useState(false)
 	const [updateSchoolNote] = useMutation(UPDATE_SCHOOL_NOTE, {
 		update(cache, { data: { updateSchoolNote } }) {
@@ -19,7 +26,6 @@ const NoteManager = ({ schoolNote: original }) => {
 			})
 			setHeader(updateSchoolNote.header)
 			setCourses(updateSchoolNote.courses.map(c => c.id))
-			setContent(updateSchoolNote.content)
 			setEditmode(false)
 		},
 	})
@@ -51,8 +57,11 @@ const NoteManager = ({ schoolNote: original }) => {
 	})
 
 	const saveNote = async () => {
+		const contentState = editorState.getCurrentContent()
+		const content = JSON.stringify(convertToRaw(contentState))
+
 		if (!original.id) {
-			createNote()
+			createNote(content)
 			return
 		}
 
@@ -63,9 +72,11 @@ const NoteManager = ({ schoolNote: original }) => {
 				content,
 			} },
 		})
+
+		setEditmode(false)
 	}
 
-	const createNote = () => {
+	const createNote = (content) => {
 		createSchoolNote({
 			variables: { newSchoolNote: {
 				header,
@@ -73,21 +84,35 @@ const NoteManager = ({ schoolNote: original }) => {
 				content,
 			} },
 		})
+
+		setEditmode(false)
 	}
 
 	const deleteNote = async () => {
 		if (!original.id) {
 			history.push('/n')
+			return
 		}
+
+		const warningMessage = `Do you really want to delete note '${header}'?`
+		if (!window.confirm(warningMessage)) return
 		deleteSchoolNote({
 			variables: { id: original.id },
 		})
 	}
+	const style = {
+		margin: '0 5% 0 5%',
+	}
 
 	return (
-		<div>
-			<h2>{header}</h2>
-			<NoteContent {...{ content, setContent }} />
+		<div style={style}>
+			<Prompt
+				when={editmode}
+				message='There may be unsaved changes. Do you really want to leave?'
+			/>
+			<NoteHeader {...{ header, setHeader, setEditmode }} />
+			<NoteContent {...{ editorState, setEditorState, setEditmode }} />
+			<br />
 			<button onClick={saveNote}>Save</button>
 			<button onClick={deleteNote}>{original.id ? 'Delete': 'Cancel'}</button>
 		</div>

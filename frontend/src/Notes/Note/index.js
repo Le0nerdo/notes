@@ -27,7 +27,6 @@ export const CreateNote = () => {
 	const schoolNote = {
 		header: 'New note',
 		courses: [course],
-		content: '',
 	}
 
 	return <NoteManager schoolNote={schoolNote} />

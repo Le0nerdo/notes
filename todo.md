@@ -1,6 +1,6 @@
 # ToDo
 
-refresh noteslistnotes
+refresh noteslistnotes (createnote problem)
 
 update notes subjects
 
