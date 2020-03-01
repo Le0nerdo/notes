@@ -5,6 +5,7 @@ import { CREATE_SCHOOL_NOTE, DELETE_SCHOOL_NOTE, SCHOOL_NOTE, UPDATE_SCHOOL_NOTE
 import { useHistory, Prompt } from 'react-router-dom'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import NoteHeader from './NoteHeader'
+import CourseSelector from './CourseSelector'
 
 const NoteManager = ({ schoolNote: original }) => {
 	const originalContent = original.content
@@ -111,8 +112,8 @@ const NoteManager = ({ schoolNote: original }) => {
 				message='There may be unsaved changes. Do you really want to leave?'
 			/>
 			<NoteHeader {...{ header, setHeader, setEditmode }} />
+			<CourseSelector {...{ courses, setCourses, setEditmode }} />
 			<NoteContent {...{ editorState, setEditorState, setEditmode }} />
-			<br />
 			<button onClick={saveNote}>Save</button>
 			<button onClick={deleteNote}>{original.id ? 'Delete': 'Cancel'}</button>
 		</div>

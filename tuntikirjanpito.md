@@ -25,10 +25,11 @@
 |27.1.		|7		|redid school note resolvers and some tests
 |28.1.-29.1.|5		|finished redoing resolvers
 |29.1.		|1		|updated frontend to work somehow with new backend
-|29.1.-5.2	|11		|figuring out how to structure frontend
-|6.2-7.2	|7		|frontend structure progress
-|21.2-24.2	|10		|added subject and course managment
-|24.2		|4		|added toLearnNotes to new frontend
-|25.2		|3		|styling and fixing
-|26.2		|4		|starting schoolNote managment
-|27.2-29.2	|9		|Making note editor
+|29.1.-5.2.	|11		|figuring out how to structure frontend
+|6.2.-7.2.	|7		|frontend structure progress
+|21.2.-24.2.|10		|added subject and course managment
+|24.2.		|4		|added toLearnNotes to new frontend
+|25.2.		|3		|styling and fixing
+|26.2.		|4		|starting schoolNote managment
+|27.2.-29.2.|9		|Making note editor
+|1.3.		|4		|Work on header & course/subject managment on note

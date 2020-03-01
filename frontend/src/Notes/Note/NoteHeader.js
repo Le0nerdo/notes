@@ -1,9 +1,44 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+
+const EditArea = ({
+	onFocus,
+	onKeyPress,
+	header,
+	onChange,
+}) => {
+	const ref = useRef()
+
+	useEffect(() => {
+		ref.current.focus()
+	}, [])
+
+	const textareaStyle = {
+		fontFamily: 'Georgia, serif',
+		resize: 'none',
+		fontSize: '2em',
+		margin: '0.67em 0 0.3em 0',
+		width: '100%',
+		padding: '0.1em',
+		border: '0.05em solid gray',
+		fontWeight: 'bold',
+	}
+
+	return (
+		<textarea
+			ref={ref}
+			onFocus={onFocus}
+			onKeyPress={onKeyPress}
+			style={textareaStyle}
+			spellCheck='false'
+			rows='1'
+			value={header}
+			onChange={onChange}
+		/>
+	)
+}
 
 const NoteHeader = ({ header, setHeader, setEditmode }) => {
 	const [editing, setEditing] = useState(false)
-	const ref = useRef(null)
-	const focusTextarea = () => ref.current.focus()
 
 	const onChange = ({ target }) => {
 		if (!editing) activateEditmode()
@@ -13,7 +48,6 @@ const NoteHeader = ({ header, setHeader, setEditmode }) => {
 	const activateEditmode = () => {
 		setEditmode(true)
 		setEditing(true)
-		focusTextarea()
 	}
 
 	const onKeyPress = (event) => {
@@ -25,31 +59,36 @@ const NoteHeader = ({ header, setHeader, setEditmode }) => {
 		}
 	}
 
-	const textareaStyle = {
-		display: editing ? 'block': 'none',
-		resize: 'none',
-		fontSize: '2em',
-		margin: '0.67em 0 0.67em 0',
-		width: '100%',
+	const onFocus = (event) => {
+		const endPosition = header.length
+		event.target.selectionEnd = endPosition
+		event.target.selectionStart = endPosition
+	}
 
+	const staticStyle = {
+		fontFamily: 'Georgia, serif',
+		display: editing ? 'none': '',
+		fontSize: '2em',
+		margin: '0.67em 0 0.3em 0',
+		width: '100%',
+		padding: '0.1em',
+		border: '0.05em solid white',
 	}
 
 	return (
-		<div>
-			<h1
-				style={{ display: editing ? 'none': '' }}
+		!editing
+			?<h1
+				style={staticStyle}
 				onClick={activateEditmode}
 			>{header}</h1>
-			<textarea
-				ref={ref}
-				onKeyPress={onKeyPress}
-				style={textareaStyle}
-				spellCheck='false'
-				rows='1'
-				value={header}
-				onChange={onChange}
-			/>
-		</div>
+			:<>
+				<EditArea
+					onFocus={onFocus}
+					onKeyPress={onKeyPress}
+					header={header}
+					onChange={onChange}
+				/>
+			</>
 	)
 }
 
