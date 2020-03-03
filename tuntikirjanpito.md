@@ -33,3 +33,4 @@
 |26.2.		|4		|starting schoolNote managment
 |27.2.-29.2.|9		|Making note editor
 |1.3.		|4		|Work on header & course/subject managment on note
+|2.3.-3.3.	|6		|Work on rich text editor

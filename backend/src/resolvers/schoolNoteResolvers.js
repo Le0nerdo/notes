@@ -66,8 +66,8 @@ const createSchoolNote = async (_, { newSchoolNote }, { user, dataSources }) => 
 
 const updateSchoolNote = async (_, { updatedSchoolNote }, { user, dataSources }) => {
 	if (!user) throw new AuthenticationError('Not authenticated.')
-	const { id, header } = updatedSchoolNote
-	if (!(id && header)) throw new UserInputError('Required fields not filled.')
+	const { id, header, courses } = updatedSchoolNote
+	if (!(id && header && courses.length > 0)) throw new UserInputError('Required fields not filled.')
 	try {
 		const { rows } = await dataSources.db.updateSchoolNote(updatedSchoolNote)
 		if (rows.length < 1) throw { message: 'no note' }

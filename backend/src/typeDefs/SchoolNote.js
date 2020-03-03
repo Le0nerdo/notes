@@ -35,6 +35,7 @@ const SchoolNote = gql`
 	input UpdatedSchoolNote {
 		id: Int!
 		header: String!
+		courses: [Int!]!
 		content: String!
 	}
 `

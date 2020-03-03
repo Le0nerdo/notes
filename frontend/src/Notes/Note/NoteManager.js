@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import NoteContent from './NoteContent'
-import { useMutation } from 'react-apollo'
+import { useMutation, useApolloClient } from 'react-apollo'
 import { CREATE_SCHOOL_NOTE, DELETE_SCHOOL_NOTE, SCHOOL_NOTE, UPDATE_SCHOOL_NOTE } from './requests'
 import { useHistory, Prompt } from 'react-router-dom'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import NoteHeader from './NoteHeader'
 import CourseSelector from './CourseSelector'
+import { MY_SUBJECTS } from '../requests'
 
 const NoteManager = ({ schoolNote: original }) => {
+	const client = useApolloClient()
 	const originalContent = original.content
 		? EditorState.createWithContent(
 			convertFromRaw(JSON.parse(original.content)),
@@ -60,16 +62,21 @@ const NoteManager = ({ schoolNote: original }) => {
 	const saveNote = async () => {
 		const contentState = editorState.getCurrentContent()
 		const content = JSON.stringify(convertToRaw(contentState))
+		const { mySubjects } = client.readQuery({ query: MY_SUBJECTS })
+		const defaultCourse = mySubjects
+			.find(s => s.name === '').courses
+			.find(c => c.name === '').id
 
 		if (!original.id) {
-			createNote(content)
+			createNote(content, defaultCourse)
 			return
 		}
 
 		updateSchoolNote({
 			variables: { updatedSchoolNote: {
 				id: original.id,
-				header,
+				header: header ? header: 'No header',
+				courses: courses.length > 0 ? courses: [defaultCourse],
 				content,
 			} },
 		})
@@ -77,11 +84,11 @@ const NoteManager = ({ schoolNote: original }) => {
 		setEditmode(false)
 	}
 
-	const createNote = (content) => {
+	const createNote = (content, defaultCourse) => {
 		createSchoolNote({
 			variables: { newSchoolNote: {
-				header,
-				courses,
+				header: header ? header: 'No header',
+				courses: courses.length > 0 ? courses: [defaultCourse],
 				content,
 			} },
 		})
@@ -113,7 +120,7 @@ const NoteManager = ({ schoolNote: original }) => {
 			/>
 			<NoteHeader {...{ header, setHeader, setEditmode }} />
 			<CourseSelector {...{ courses, setCourses, setEditmode }} />
-			<NoteContent {...{ editorState, setEditorState, setEditmode }} />
+			<NoteContent {...{ editorState, setEditorState, setEditmode, saveNote }} />
 			<button onClick={saveNote}>Save</button>
 			<button onClick={deleteNote}>{original.id ? 'Delete': 'Cancel'}</button>
 		</div>

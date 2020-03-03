@@ -2,8 +2,6 @@
 
 refresh noteslistnotes (createnote problem)
 
-update notes subjects
-
 DELETE BUTTON WHEN ToLearnNote problem
 
 make/update frontend

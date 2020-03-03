@@ -1,11 +1,11 @@
 import React, { useRef, useEffect } from 'react'
-import { Editor, EditorState, getDefaultKeyBinding, RichUtils } from 'draft-js'
+import { Editor, EditorState, getDefaultKeyBinding, RichUtils, KeyBindingUtil } from 'draft-js'
 import keyCommandHandler from './keyCommandHandler'
 import './NoteContent.css'
 import 'draft-js/dist/Draft.css'
 import EditorControls from './EditorControls'
 
-const NoteContent = ({ editorState, setEditorState, setEditmode }) => {
+const NoteContent = ({ editorState, setEditorState, setEditmode, saveNote }) => {
 
 	const ref = useRef(null)
 	const focusEditor = () => ref.current.focus()
@@ -18,6 +18,11 @@ const NoteContent = ({ editorState, setEditorState, setEditmode }) => {
 	}, [])
 
 	const handleKeyCommand = (command, editorState) => {
+		if (command === 'save-note') {
+			saveNote()
+			return 'handled'
+		}
+
 		const newState = keyCommandHandler(command, editorState)
 
 		if (newState) {
@@ -29,12 +34,49 @@ const NoteContent = ({ editorState, setEditorState, setEditmode }) => {
 	}
 
 	const keyBindingFn = (event) => {
+		setEditmode(true)
+		console.log(event.keyCode)
+
 		switch (event.keyCode) {
+			case 49:
+				if (KeyBindingUtil.hasCommandModifier(event) && event.shiftKey) {
+					return 'header-one'
+				}
+				return getDefaultKeyBinding(event)
+			case 50:
+				if (KeyBindingUtil.hasCommandModifier(event) && event.shiftKey) {
+					return 'header-two'
+				}
+				return getDefaultKeyBinding(event)
+			case 72:
+				if (KeyBindingUtil.hasCommandModifier(event)) {
+					return 'highlight'
+				}
+				return getDefaultKeyBinding(event)
+			case 83:
+				if (KeyBindingUtil.hasCommandModifier(event)) {
+					return 'save-note'
+				}
+				return getDefaultKeyBinding(event)
+			case 85:
+				if (KeyBindingUtil.hasCommandModifier(event)) {
+					return event.shiftKey ? 'line-through': 'line-under'
+				}
+				return getDefaultKeyBinding(event)
 			case 9:
-				return 'tab'
+				return event.shiftKey ? 'ordered-list': 'unordered-list'
 			default:
 				return getDefaultKeyBinding(event)
 		}
+	}
+
+	const customStyleMap = {
+		'THROUGHLINE': {
+			textDecoration: 'line-through',
+		},
+		'HIGHLIGH': {
+			backgroundColor: 'yellow',
+		},
 	}
 
 	const toggleInlineStyle = (inlineStyle) => {
@@ -64,6 +106,7 @@ const NoteContent = ({ editorState, setEditorState, setEditmode }) => {
 					onChange,
 					ref,
 					keyBindingFn,
+					customStyleMap,
 				}}/>
 			</div>
 		</div>

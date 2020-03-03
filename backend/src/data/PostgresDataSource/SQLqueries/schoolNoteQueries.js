@@ -96,18 +96,27 @@ const createSchoolNote = (courses) => `
 	GROUP BY s.id
 `
 
-const updateSchoolNote = `
+const updateSchoolNote = (courses) => `
 	WITH note AS (
 		UPDATE school_note
 		SET header=$3, content=$4
 		WHERE owner_id=$1 AND id=$2
 		RETURNING id, header, content
+	), coud AS (
+		DELETE
+		FROM school_note_course
+		WHERE note_id=(SELECT id FROM note)
+		RETURNING note_id AS id
+	), newCou AS (
+		INSERT INTO school_note_course(owner_id, note_id, course_id) VALUES
+		${courses.map((_, i) => `($1, (SELECT DISTINCT id FROM coud), $${i + 5})`).join(',\n')}
+		RETURNING course_id, note_id
 	)
 	SELECT id, header AS name, content
 	FROM note
 	UNION ALL
 	SELECT c.id AS id, c.name AS name, 'course' AS content
-	FROM school_note_course snc
+	FROM newCou snc
 	JOIN course c ON snc.course_id=c.id
 	WHERE snc.note_id=(SELECT id FROM note)
 	UNION ALL

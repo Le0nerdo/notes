@@ -29,8 +29,8 @@ const NotePreview = ({ header, subjects, courses, id }) => {
 		<div style={style} onClick={redirect}>
 			<h1 style={headerStyle}>{header}</h1>
 			<p style={infoStyle}>
-				Subjects: {subjects.map(s => s.name).join(', ')}<br />
-				Courses: {courses.map(c => c.name).join(', ')}
+				Subjects: {subjects.map(s => s.name).filter(s => s).join(', ')}<br />
+				Courses: {courses.map(c => c.name).filter(c => c).join(', ')}
 			</p>
 		</div>
 	)

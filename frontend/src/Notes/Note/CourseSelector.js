@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useApolloClient } from 'react-apollo'
 import { MY_SUBJECTS } from '../requests'
+import './CourseSelector.css'
 
 const buttonStyle = {
 	borderStyle: 'outset',
 	borderWidth: '0 0.1em 0.1em 0.1em',
 	borderColor: 'black',
 	minWidth: '10em',
-	backgroundColor: 'white',
 	padding: '0.1em',
 	cursor: 'pointer',
 }
@@ -18,6 +18,7 @@ const SelectCourseButton = ({ name, subject, onClick }) => {
 
 	return (
 		<div
+			className='dropdownElement'
 			style={buttonStyle}
 			onClick={onClick}
 		>
@@ -76,7 +77,7 @@ const CourseSelector = ({ courses, setCourses, setEditmode }) => {
 	}
 
 	const removeCourse = (id) => () => {
-		setCourses(courses.filter(c => c.id !== id))
+		setCourses(courses.filter(c => c !== id))
 		setActive2(false)
 		setEditmode(true)
 	}
@@ -100,6 +101,7 @@ const CourseSelector = ({ courses, setCourses, setEditmode }) => {
 			{showCourses.join(', ')}
 			<br />
 			<div
+				className='dropdownElement'
 				style={{ ...buttonStyle, ...extraStyle }}
 				onClick={() => {
 					setActive(!active)
@@ -119,6 +121,7 @@ const CourseSelector = ({ courses, setCourses, setEditmode }) => {
 				</div>
 			</div>
 			<div
+				className='dropdownElement'
 				style={{ ...buttonStyle, ...extraStyle }}
 				onClick={() => {
 					setActive2(!active2)

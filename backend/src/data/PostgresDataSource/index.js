@@ -82,9 +82,9 @@ class PostgresDataSource extends DataSource {
 		return await this.query(SQL.createSchoolNote(courses), args)
 	}
 
-	async updateSchoolNote({ id, header, content }) {
-		const args = [this.user.id, id, header, content]
-		return await this.query(SQL.updateSchoolNote, args)
+	async updateSchoolNote({ id, header, content, courses }) {
+		const args = [this.user.id, id, header, content, ...courses]
+		return await this.query(SQL.updateSchoolNote(courses), args)
 	}
 
 	async deleteSchoolNote({ id }) {

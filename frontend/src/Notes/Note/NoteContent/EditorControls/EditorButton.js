@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditorButton = ({ label, action, command, active }) => {
+const EditorButton = ({ label, action, command, active, shortcut, style }) => {
 
 	const onMouseDown = (event) => {
 		event.preventDefault()
@@ -9,9 +9,14 @@ const EditorButton = ({ label, action, command, active }) => {
 
 	return (
 		<span
-			className={`Editor-styleButton ${active}`}
+			title={shortcut || 'No shortcut'}
+			className={`Editor-button ${active}`}
 			onMouseDown={onMouseDown}
-		>{label}</span>
+		>
+			<span style={style || {}}>
+				{label}
+			</span>
+		</span>
 	)
 }
 
