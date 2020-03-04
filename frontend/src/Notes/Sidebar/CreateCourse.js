@@ -42,10 +42,10 @@ const CreateCourse = ({ subject }) => {
 	}
 
 	return !active
-		? <button
+		? <div><button
 			style={{ ...style, cursor: 'pointer' }}
 			onClick={() => setActive(true)}
-		>New Course</button>
+		>New Course</button></div>
 		: <div style={style}>
 			<input
 				{...nameField}

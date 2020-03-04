@@ -6,9 +6,11 @@ import { useHistory, Prompt } from 'react-router-dom'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import NoteHeader from './NoteHeader'
 import CourseSelector from './CourseSelector'
+import Notifier from './Notifier'
 import { MY_SUBJECTS } from '../requests'
 
 const NoteManager = ({ schoolNote: original }) => {
+	const [alertMessage, setAlertMessage] = useState('')
 	const client = useApolloClient()
 	const originalContent = original.content
 		? EditorState.createWithContent(
@@ -30,23 +32,16 @@ const NoteManager = ({ schoolNote: original }) => {
 			setHeader(updateSchoolNote.header)
 			setCourses(updateSchoolNote.courses.map(c => c.id))
 			setEditmode(false)
+			setAlertMessage('')
+			setAlertMessage('Note saved.')
 		},
 	})
 	const [createSchoolNote] = useMutation(CREATE_SCHOOL_NOTE, {
 		update(cache, { data: { createSchoolNote } }) {
-			/*cache.writeQuery({
-				query: SCHOOL_NOTE,
-				variables: { id: createSchoolNote.id },
-				data: { schoolNote: createSchoolNote },
-			})*/
-			/*cache.writeFragment({
-				id: `SchoolNote:${createSchoolNote.id}`,
-				fragment: SCHOOL_NOTE_DETAILS,
-				data: createSchoolNote,
-			})*/
 			cache.writeData(createSchoolNote)
 			history.push(`/n/n${createSchoolNote.id}`)
 		},
+		refetchQueries: [{ query: MY_SUBJECTS } ],
 	})
 	const [deleteSchoolNote] = useMutation(DELETE_SCHOOL_NOTE, {
 		update(cache, {  data: { deleteSchoolNote } }) {
@@ -57,6 +52,7 @@ const NoteManager = ({ schoolNote: original }) => {
 			cache.data.delete(`SchoolNote:${original.id}`)
 			history.push('/n')
 		},
+		refetchQueries: [{ query: MY_SUBJECTS } ],
 	})
 
 	const saveNote = async () => {
@@ -112,6 +108,18 @@ const NoteManager = ({ schoolNote: original }) => {
 		margin: '0 5% 0 5%',
 	}
 
+	const buttonStyle = {
+		padding: '0.1em',
+		borderStyle: 'solid',
+		borderWidth: '0.2em',
+		borderRadius: '0.4em',
+		borderColor: 'lightgray gray gray lightgray',
+		margin: '0.1em',
+		marginTop: '0.5em',
+		fontWeight: 'bold',
+		cursor: 'pointer',
+	}
+
 	return (
 		<div style={style}>
 			<Prompt
@@ -119,10 +127,18 @@ const NoteManager = ({ schoolNote: original }) => {
 				message='There may be unsaved changes. Do you really want to leave?'
 			/>
 			<NoteHeader {...{ header, setHeader, setEditmode }} />
+			<Notifier message={alertMessage} />
 			<CourseSelector {...{ courses, setCourses, setEditmode }} />
 			<NoteContent {...{ editorState, setEditorState, setEditmode, saveNote }} />
-			<button onClick={saveNote}>Save</button>
-			<button onClick={deleteNote}>{original.id ? 'Delete': 'Cancel'}</button>
+			<button
+				title='ctr + s'
+				style={{ ...buttonStyle, backgroundColor: '#7FFF00' }}
+				onClick={saveNote}>Save</button>
+			<button
+				title='no shortcut'
+				style={{ ...buttonStyle, backgroundColor: 'red' }}
+				onClick={deleteNote}
+			>{original.id ? 'Delete': 'Cancel'}</button>
 		</div>
 	)
 }

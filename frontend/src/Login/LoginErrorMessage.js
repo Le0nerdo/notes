@@ -19,6 +19,8 @@ const LoginErrorMessage = ({ error }) => {
 		border: '0.1em solid red',
 		borderRadius: 5,
 		width: '50%',
+		marginRight: '25%',
+		marginLeft: '25%',
 	}
 
 	return message

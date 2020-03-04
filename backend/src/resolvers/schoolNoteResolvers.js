@@ -41,6 +41,18 @@ const schoolNotes = async (_, args, { user, dataSources }) => {
 	}
 }
 
+const noteCount = async (_, args, { user, dataSources }) => {
+	if (!user) throw new AuthenticationError('Not authenticated.')
+	try {
+		const { rows } = await dataSources.db.getNoteCount(args)
+		return rows.length === 0
+			? null
+			: rows[0].count
+	} catch (error) {
+		unexpectedError(error)
+	}
+}
+
 const createSchoolNote = async (_, { newSchoolNote }, { user, dataSources }) => {
 	if (!user) throw new AuthenticationError('Not authenticated.')
 	const { header, courses } = newSchoolNote
@@ -118,6 +130,7 @@ module.exports = { schoolNoteResolvers: [{
 	Query: {
 		schoolNote,
 		schoolNotes,
+		noteCount,
 	},
 	Mutation: {
 		createSchoolNote,

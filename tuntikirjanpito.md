@@ -34,3 +34,4 @@
 |27.2.-29.2.|9		|Making note editor
 |1.3.		|4		|Work on header & course/subject managment on note
 |2.3.-3.3.	|6		|Work on rich text editor
+|4.3.		|4		|Improved note editor and notelist + bugfixes

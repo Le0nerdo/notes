@@ -78,6 +78,7 @@ const NoteHeader = ({ header, setHeader, setEditmode }) => {
 	return (
 		!editing
 			?<h1
+				title='Click to edit'
 				style={staticStyle}
 				onClick={activateEditmode}
 			>{header}</h1>

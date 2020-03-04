@@ -32,7 +32,10 @@ const CreateSubject = () => {
 	}
 
 	return !active
-		? <button style={style} onClick={() => setActive(true)}>New subject</button>
+		? <div><button
+			style={style}
+			onClick={() => setActive(true)}
+		>New subject</button></div>
 		: <div style={style}>
 			<input
 				{...nameField}

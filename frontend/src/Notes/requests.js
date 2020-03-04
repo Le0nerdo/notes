@@ -48,6 +48,13 @@ export const SCHOOL_NOTES = gql`
 	${SCHOOL_NOTE_PREVIEW}
 `
 
+
+export const NOTE_COUNT = gql`
+	query NoteCount($subject: Int, $course: Int) {
+		noteCount(subject: $subject, course: $course)
+	}
+`
+
 export const SHARED_SCHOOL_NOTES = gql`
 	query SharedSchoolNotes($page: Int) {
 		sharedSchoolNotes(page: $page) {

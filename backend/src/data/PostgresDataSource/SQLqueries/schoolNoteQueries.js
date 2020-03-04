@@ -72,6 +72,29 @@ const getSchoolNotes = ({ subject, course }) => {
 	`
 }
 
+const getNoteCount = ({ subject, course }) => {
+	if (subject) return `
+		SELECT COUNT(n.id)
+		FROM school_note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		JOIN course_subject cs ON cs.course_id=snc.course_id
+		WHERE n.owner_id=$1 AND cs.subject_id=$2
+	`
+
+	if (course) return `
+		SELECT COUNT(n.id)
+		FROM school_note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		WHERE n.owner_id=$1 AND snc.course_id=$2
+	`
+
+	return `
+		SELECT COUNT(*)
+		FROM school_note
+		WHERE owner_id=$1
+	`
+}
+
 const createSchoolNote = (courses) => `
 	WITH note AS (
 		INSERT INTO school_note(owner_id, header, content)
@@ -142,6 +165,7 @@ const getSchoolNoteContent = `
 `
 
 module.exports = { schoolNoteQueries: {
+	getNoteCount,
 	getSchoolNote,
 	getSchoolNotes,
 	createSchoolNote,

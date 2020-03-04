@@ -72,6 +72,12 @@ class PostgresDataSource extends DataSource {
 		return await this.query(SQL.getSchoolNotes({ subject, course }), args)
 	}
 
+	async getNoteCount({ subject, course }) {
+		const cs = !(subject || course ) ? [] : subject ? [subject] : [course]
+		const args = [this.user.id, ...cs]
+		return await this.query(SQL.getNoteCount({ subject, course }), args)
+	}
+
 	async getSchoolNoteContent({ id }) {
 		const args = [this.user.id, id]
 		return await this.query(SQL.getSchoolNoteContent, args)

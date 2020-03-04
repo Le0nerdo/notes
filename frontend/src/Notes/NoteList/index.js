@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom'
 import { SCHOOL_NOTES, SHARED_SCHOOL_NOTES } from '../requests'
 import { useQuery } from '@apollo/react-hooks'
 import NotePreview from './NotePreview'
+import PageSelector from './PageSelector'
 
 const NoteList = ({ subject, course, shared }) => {
-	const [page/*, setPage*/] = useSearch('page')
+	const [page , setPage] = useSearch('page')
 	const { id } = useParams()
-	const { loading, data, error } = useQuery(
+	const { loading, data, error, refetch } = useQuery(
 		shared ? SHARED_SCHOOL_NOTES : SCHOOL_NOTES,
 		{
 			variables: {
@@ -16,18 +17,43 @@ const NoteList = ({ subject, course, shared }) => {
 				subject: subject ? parseInt(id) : null,
 				course: course ? parseInt(id) : null,
 			},
+			fetchPolicy: 'network-only',
 		},
 	)
 
-	if (loading) return <div>Loading...</div>
-	if (error) return <div>Error...</div>
-	const notes = data[shared ? 'sharedSchoolNotes' : 'schoolNotes']
+	const changePage = (page) => {
+		setPage(page)
+		refetch({
+			variables: {
+				page: page ? parseInt(page) : null,
+				subject: subject ? parseInt(id) : null,
+				course: course ? parseInt(id) : null,
+			},
+		})
+	}
+
 	return (
-		<div className='NoteListContainer'>
-			{notes.map(n => (
-				<NotePreview key={n.id} {...n} />
-			))}
-		</div>
+		<>
+			{ !(shared) &&
+			<PageSelector {...{
+				page: page ? parseInt(page) : undefined,
+				changePage,
+				id,
+				subject,
+				course,
+			}} />}
+			{
+				loading
+					? <div>Loading...</div>
+					: error
+						? <div>Error...</div>
+						: <div className='NoteListContainer'>
+							{data[shared ? 'sharedSchoolNotes' : 'schoolNotes'].map(n => (
+								<NotePreview key={n.id} {...n} />
+							))}
+						</div>
+			}
+		</>
 	)
 }
 

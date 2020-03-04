@@ -4,6 +4,7 @@ const SchoolNote = gql`
 	extend type Query {
 		schoolNote(id: Int!): SchoolNote
 		schoolNotes(subject: Int, course: Int, page: Int): [SchoolNote!]!
+		noteCount(subject: Int, course:Int): Int!
 		sharedSchoolNotes(page: Int): [SchoolNote!]!
 	}
 
