@@ -1,0 +1,7 @@
+.dropdownElement {
+	background-color: white;
+}
+
+.dropdownElement:hover {
+	background-color: lightgray;
+}

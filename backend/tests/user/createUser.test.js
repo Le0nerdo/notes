@@ -19,6 +19,11 @@ const testUser = {
 }
 
 describe('createUser (mutation)', () => {
+
+	beforeEach(() => {
+		process.env.SECRET = 'testSecret'
+	})
+
 	test('valid input', async () => {
 		const { server, db } = createTestServer()
 

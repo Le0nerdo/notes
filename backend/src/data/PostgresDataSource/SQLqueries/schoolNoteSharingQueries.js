@@ -5,6 +5,8 @@ const getSharedSchoolNotes = `
 		JOIN school_note n ON ss.note_id=n.id
 		JOIN account a ON n.owner_id=a.id
 		WHERE ss.account_id=$1
+		LIMIT 10
+		OFFSET $2
 	)
 	SELECT id, header AS name, content, 0 AS note_id, owner
 	FROM note

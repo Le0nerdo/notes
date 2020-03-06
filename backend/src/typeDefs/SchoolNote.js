@@ -2,9 +2,10 @@ const { gql } = require('apollo-server-express')
 
 const SchoolNote = gql`
 	extend type Query {
-		schoolNotes: [SchoolNote!]!
-		sharedSchoolNotes: [SchoolNote!]!
-		mySubjects: [Subject!]!
+		schoolNote(id: Int!): SchoolNote
+		schoolNotes(subject: Int, course: Int, page: Int): [SchoolNote!]!
+		noteCount(subject: Int, course:Int): Int!
+		sharedSchoolNotes(page: Int): [SchoolNote!]!
 	}
 
 	extend type Mutation {
@@ -14,8 +15,6 @@ const SchoolNote = gql`
 		shareSchoolNote(id: Int!, receiver: String!): Confirmation!
 		unshareSchoolNote(id: Int!): Confirmation!
 		unSubSchoolNote(id: Int!): Confirmation!
-		createSubject(name: String!): Subject
-		createCourse(subjects: [Int!]!, name: String!): Course
 	}
 
 	type SchoolNote {
@@ -23,8 +22,9 @@ const SchoolNote = gql`
 		owner: String!
 		header: String!
 		content: String!
-		subjects: [NestedSubject!]!
-		courses: [NestedCourse!]!
+		permission: Boolean!
+		subjects: [Subject!]!
+		courses: [Course!]!
 	}
 
 	input NewSchoolNote {
@@ -36,29 +36,8 @@ const SchoolNote = gql`
 	input UpdatedSchoolNote {
 		id: Int!
 		header: String!
+		courses: [Int!]!
 		content: String!
-	}
-
-	type Subject {
-		id: Int!
-		name: String!
-		courses: [NestedCourse!]!
-	}
-
-	type Course {
-		id: Int!
-		name: String!
-		subjects: [NestedSubject!]!
-	}
-
-	type NestedSubject {
-		id: Int!
-		name: String!
-	}
-
-	type NestedCourse {
-		id: Int!
-		name: String!
 	}
 `
 

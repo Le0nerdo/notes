@@ -1,0 +1,58 @@
+.Editor-container {
+	border-style: solid;
+	border-width: 0.1em;
+	border-radius: 0.7em;
+	padding: 0.3em;
+}
+
+.public-DraftEditor-content {
+	min-height: 50vh;
+	border: 0.1em solid gray;
+	padding: 0.2em;
+}
+
+.operationButtons {
+	float: right;
+}
+
+.inlineStyleButtons {
+	margin-top: 0.7em;
+	margin-bottom: 0.5em;
+}
+
+.Editor-button {
+	padding: 0.1em;
+	background-color: white;
+	border-style: solid;
+	border-width: 0.2em;
+	border-radius: 0.4em;
+	border-color: lightgray gray gray lightgray;
+	margin: 0.1em;
+	margin-top: 0.5em;
+	cursor: pointer;
+}
+
+.operationButtons .Editor-button:active {
+	background-color: lightgray;
+	border-color: gray lightgray lightgray gray;
+}
+
+.inlineStyleButtons .Editor-button.true {
+	background-color: lightgray;
+	border-color: gray lightgray lightgray gray;
+}
+
+.blockStyleButton .Editor-button.true {
+	background-color: lightgray;
+	border-color: gray lightgray lightgray gray;
+}
+
+
+.DraftEditor-editorContainer h1,
+.DraftEditor-editorContainer h2,
+.DraftEditor-editorContainer ul,
+.DraftEditor-editorContainer ol
+{
+	margin-top: 0.2em;
+	margin-bottom: 0.2em;
+}

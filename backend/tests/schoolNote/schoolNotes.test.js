@@ -8,7 +8,6 @@ const SCHOOL_NOTES = gql`
 			id
 			owner
 			header
-			content
 			subjects {
 				id
 				name
@@ -48,7 +47,6 @@ describe('schoolNotes (query)', () => {
 		expect(data.schoolNotes[0].header).toBe('Note1Header')
 		expect(data.schoolNotes[0].id).toBe(1)
 		expect(data.schoolNotes[1].owner).toBe('Test')
-		expect(data.schoolNotes[1].content).toBe('test2')
 		expect(data.schoolNotes[1].subjects[0].id).toBe(2)
 		expect(data.schoolNotes[1].subjects[1].name).toBe('Hello')
 		expect(data.schoolNotes[0].courses[0].id).toBe(1)

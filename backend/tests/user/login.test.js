@@ -32,6 +32,11 @@ const mockGetUserByName = jest.fn(async ({ name, username }) => {
 })
 
 describe('login (mutation)', () => {
+
+	beforeEach(() => {
+		process.env.SECRET = 'testSecret'
+	})
+
 	test('valid inpt', async () => {
 		const { server, db } = createTestServer()
 

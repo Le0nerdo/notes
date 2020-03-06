@@ -1,25 +1,99 @@
-const getSchoolNotes = `
+const getSchoolNote = `
 	WITH note AS (
 		SELECT id, header, content
 		FROM school_note
-		WHERE owner_id=$1
+		WHERE owner_id=$1 AND id=$2
 	)
-	SELECT id, header AS name, content, 0 AS note_id
+	SELECT id, header AS name, content
 	FROM note
 	UNION ALL
-	SELECT c.id AS id, c.name AS name, 'course' AS content, n.id AS note_id
-	FROM note n
-	JOIN school_note_course snc ON snc.note_id=n.id
+	SELECT c.id AS id, c.name AS name, 'course' AS content
+	FROM school_note_course snc
 	JOIN course c ON snc.course_id=c.id
+	WHERE snc.note_id=(SELECT id FROM note)
 	UNION ALL
-	SELECT s.id AS id, s.name AS name, 'subject' AS content, n.id AS note_id
-	FROM note n
-	JOIN school_note_course snc ON snc.note_id=n.id
-	JOIN course c ON snc.course_id=c.id
-	JOIN course_subject cs ON c.id=cs.course_id
+	SELECT s.id AS id, s.name AS name, 'subject' AS subject
+	FROM school_note_course snc
+	JOIN course_subject cs ON snc.course_id=cs.course_id
 	JOIN subject s ON cs.subject_id=s.id
-	GROUP BY s.id, n.id
+	WHERE snc.note_id=(SELECT id FROM note)
+	GROUP BY s.id
 `
+
+const getSchoolNotes = ({ subject, course }) => {
+	const withSubjectFilter = `
+		SELECT n.id AS id, n.header AS header
+		FROM school_note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		JOIN course_subject cs ON cs.course_id=snc.course_id
+		WHERE n.owner_id=$1 AND cs.subject_id=$3
+		GROUP BY n.id
+		LIMIT 10
+		OFFSET $2
+	`
+
+	const withCourseFilter = `
+		SELECT n.id AS id, n.header AS header
+		FROM school_note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		WHERE n.owner_id=$1 AND snc.course_id=$3
+		GROUP BY n.id
+		LIMIT 10
+		OFFSET $2
+	`
+
+	const withAll = `
+		SELECT id, header
+		FROM school_note
+		WHERE owner_id=$1
+		LIMIT 10
+		OFFSET $2
+	`
+
+	return `
+		WITH note AS (
+			${!(subject || course) ? withAll : subject ? withSubjectFilter : withCourseFilter}
+		)
+		SELECT id, header AS name, 'note' AS content, 0 AS note_id
+		FROM note
+		UNION ALL
+		SELECT c.id AS id, c.name AS name, 'course' AS content, n.id AS note_id
+		FROM note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		JOIN course c ON snc.course_id=c.id
+		UNION ALL
+		SELECT s.id AS id, s.name AS name, 'subject' AS content, n.id AS note_id
+		FROM note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		JOIN course c ON snc.course_id=c.id
+		JOIN course_subject cs ON c.id=cs.course_id
+		JOIN subject s ON cs.subject_id=s.id
+		GROUP BY s.id, n.id
+	`
+}
+
+const getNoteCount = ({ subject, course }) => {
+	if (subject) return `
+		SELECT COUNT(n.id)
+		FROM school_note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		JOIN course_subject cs ON cs.course_id=snc.course_id
+		WHERE n.owner_id=$1 AND cs.subject_id=$2
+	`
+
+	if (course) return `
+		SELECT COUNT(n.id)
+		FROM school_note n
+		JOIN school_note_course snc ON snc.note_id=n.id
+		WHERE n.owner_id=$1 AND snc.course_id=$2
+	`
+
+	return `
+		SELECT COUNT(*)
+		FROM school_note
+		WHERE owner_id=$1
+	`
+}
 
 const createSchoolNote = (courses) => `
 	WITH note AS (
@@ -45,18 +119,27 @@ const createSchoolNote = (courses) => `
 	GROUP BY s.id
 `
 
-const updateSchoolNote = `
+const updateSchoolNote = (courses) => `
 	WITH note AS (
 		UPDATE school_note
 		SET header=$3, content=$4
 		WHERE owner_id=$1 AND id=$2
 		RETURNING id, header, content
+	), coud AS (
+		DELETE
+		FROM school_note_course
+		WHERE note_id=(SELECT id FROM note)
+		RETURNING note_id AS id
+	), newCou AS (
+		INSERT INTO school_note_course(owner_id, note_id, course_id) VALUES
+		${courses.map((_, i) => `($1, (SELECT DISTINCT id FROM coud), $${i + 5})`).join(',\n')}
+		RETURNING course_id, note_id
 	)
 	SELECT id, header AS name, content
 	FROM note
 	UNION ALL
 	SELECT c.id AS id, c.name AS name, 'course' AS content
-	FROM school_note_course snc
+	FROM newCou snc
 	JOIN course c ON snc.course_id=c.id
 	WHERE snc.note_id=(SELECT id FROM note)
 	UNION ALL
@@ -75,9 +158,18 @@ const deleteSchoolNote = `
 	RETURNING id
 `
 
+const getSchoolNoteContent = `
+	SELECT content
+	FROM school_note
+	WHERE owner_id=$1 AND id=$2
+`
+
 module.exports = { schoolNoteQueries: {
+	getNoteCount,
+	getSchoolNote,
 	getSchoolNotes,
 	createSchoolNote,
 	updateSchoolNote,
 	deleteSchoolNote,
+	getSchoolNoteContent,
 } }

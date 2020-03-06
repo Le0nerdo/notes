@@ -36,23 +36,61 @@ class PostgresDataSource extends DataSource {
 		return await this.query(SQL.createCourse(subjects), args)
 	}
 
+	async deleteSubject({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.deleteSubject, args)
+	}
+
+	async deleteCourse({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.deleteCourse, args)
+	}
+
+	async getSubject({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.getSubject, args)
+	}
+
 	async getSubjects() {
 		const args = [this.user.id]
 		return await this.query(SQL.getSubjects, args)
 	}
 
-	async getSchoolNotes() {
-		const args = [this.user.id]
-		return await this.query(SQL.getSchoolNotes, args)
+	async getCourse({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.getCourse, args)
 	}
+
+	async getSchoolNote({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.getSchoolNote, args)
+	}
+
+	async getSchoolNotes({ subject, course, page }) {
+		const sc = !(subject || course) ? [] : subject ? [subject] : [course]
+		const args = [this.user.id, (page || 1) * 10 - 10, ...sc]
+		return await this.query(SQL.getSchoolNotes({ subject, course }), args)
+	}
+
+	async getNoteCount({ subject, course }) {
+		const cs = !(subject || course ) ? [] : subject ? [subject] : [course]
+		const args = [this.user.id, ...cs]
+		return await this.query(SQL.getNoteCount({ subject, course }), args)
+	}
+
+	async getSchoolNoteContent({ id }) {
+		const args = [this.user.id, id]
+		return await this.query(SQL.getSchoolNoteContent, args)
+	}
+
 	async createSchoolNote({ header, content, courses }) {
 		const args = [this.user.id, header, content, ...courses]
 		return await this.query(SQL.createSchoolNote(courses), args)
 	}
 
-	async updateSchoolNote({ id, header, content }) {
-		const args = [this.user.id, id, header, content]
-		return await this.query(SQL.updateSchoolNote, args)
+	async updateSchoolNote({ id, header, content, courses }) {
+		const args = [this.user.id, id, header, content, ...courses]
+		return await this.query(SQL.updateSchoolNote(courses), args)
 	}
 
 	async deleteSchoolNote({ id }) {
@@ -60,8 +98,8 @@ class PostgresDataSource extends DataSource {
 		return await this.query(SQL.deleteSchoolNote, args)
 	}
 
-	async getSharedSchoolNotes() {
-		const args = [this.user.id]
+	async getSharedSchoolNotes({ page }) {
+		const args = [this.user.id, (page || 1) * 10 - 10]
 		return await this.query(SQL.getSharedSchoolNotes, args)
 	}
 
