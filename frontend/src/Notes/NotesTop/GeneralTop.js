@@ -1,6 +1,6 @@
 import React from 'react'
-import { useApolloClient } from 'react-apollo'
-import { MY_SUBJECTS } from '../requests'
+import { useApolloClient, useQuery } from 'react-apollo'
+import { MY_SUBJECTS, TO_LEARN_NOTE } from '../requests'
 import ToLearnNote from './ToLearnNote'
 import { headerStyle, createStyle } from './style'
 import { useHistory, useRouteMatch } from 'react-router-dom'
@@ -12,6 +12,9 @@ const GeneralTop = () => {
 	const course = client.readQuery({ query: MY_SUBJECTS })
 		.mySubjects.find(s => s.name === '')
 		.courses.find(c => c.name === '')
+	const { loading, error, data } = useQuery(TO_LEARN_NOTE,
+		{ variables: { course: course.id } },
+	)
 
 	return (
 		<div>
@@ -22,7 +25,12 @@ const GeneralTop = () => {
 					onClick={() => history.push(`${match.url}/newNote`)}
 				>Create Note</button>
 			</div>
-			{course && <ToLearnNote course={course} />}
+			{course && <ToLearnNote {...{
+				course,
+				loading,
+				error,
+				data,
+			}} />}
 		</div>
 	)
 }

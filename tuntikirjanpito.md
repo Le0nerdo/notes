@@ -35,3 +35,4 @@
 |1.3.		|4		|Work on header & course/subject managment on note
 |2.3.-3.3.	|6		|Work on rich text editor
 |4.3.		|4		|Improved note editor and notelist + bugfixes
+|5.3.-6.3.	|3		|Made frontend ready to be merged to master

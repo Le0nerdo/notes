@@ -1,0 +1,32 @@
+.page-button {
+	background-color: #FFE4C4;
+	border-color: #DEB887;
+	cursor: pointer;
+}
+
+.page-button:focus {
+	outline-style: none;
+	box-shadow: 0 0 0 0.1em rgb(94, 158, 214);
+}
+
+.page-button:hover:enabled {
+	background-color: rgb(255, 209, 153);
+}
+
+.page-button:active {
+	background-color: #DEB887;
+	border-color: rgb(218, 162, 89);
+}
+
+.page-button.last {
+	border-radius: 0.5em 0 0 0.5em;
+}
+
+.page-button.next {
+	border-radius: 0 0.5em 0.5em 0;
+}
+
+.page-selected {
+	background-color: #FFE4C4;
+	padding: 0 0.1em;
+}

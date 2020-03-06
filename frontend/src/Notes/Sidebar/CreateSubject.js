@@ -18,7 +18,6 @@ const CreateSubject = () => {
 
 	const style = {
 		color: 'blue',
-		backgroundColor: 'white',
 		padding: '0.1em',
 		border: 'solid',
 		margin: '0.3em',
@@ -33,6 +32,7 @@ const CreateSubject = () => {
 
 	return !active
 		? <div><button
+			className='sidebar-subject'
 			style={style}
 			onClick={() => setActive(true)}
 		>New subject</button></div>

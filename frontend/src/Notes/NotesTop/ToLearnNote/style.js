@@ -1,6 +1,6 @@
 export const style = {
 	width: '80%',
-	margin: '0 9% 0 9%',
+	margin: '1% 9% 1% 9%',
 }
 
 export const textAreaStyle = {
@@ -15,7 +15,7 @@ export const textAreaStyle = {
 }
 
 export const saveButtonStyle = {
-	backgroundColor: 'green',
+	backgroundColor: '#7FFF00',
 }
 
 export const deleteButtonStyle = {

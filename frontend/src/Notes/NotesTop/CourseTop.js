@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams, Redirect, useHistory, useRouteMatch } from 'react-router-dom'
-import { useApolloClient, useMutation } from '@apollo/react-hooks'
-import { DELETE_COURSE, MY_SUBJECTS } from '../requests'
+import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks'
+import { DELETE_COURSE, MY_SUBJECTS, TO_LEARN_NOTE } from '../requests'
 import ToLearnNote from './ToLearnNote'
 import { headerStyle, deleteStyle,createStyle } from './style'
 
@@ -27,6 +27,9 @@ const CourseTop = () => {
 	const course = client.readQuery({ query: MY_SUBJECTS })
 		.mySubjects.find(s => s.id === parseInt(sid))
 		.courses.find(c => c.id === parseInt(id))
+	const { loading, error, data } = useQuery(TO_LEARN_NOTE,
+		{ variables: { course: course.id } },
+	)
 
 	if (!course) return <Redirect to={'/n'} />
 
@@ -41,7 +44,9 @@ const CourseTop = () => {
 		<div>
 			<div style={headerStyle}>
 				<h1 style={{ display: 'inline' }}>Course: {course.name}</h1>
-				{course.noteCount === 0 && <button
+				{!loading &&
+				(course.noteCount === 0 && (!data || !data.toLearnNote)) &&
+				<button
 					style={deleteStyle}
 					onClick={removeCourse}
 				>Delete Course</button>}
@@ -50,7 +55,12 @@ const CourseTop = () => {
 					onClick={() => history.push(`${match.url}/newNote`)}
 				>Create Note</button>
 			</div>
-			{course && <ToLearnNote course={course} />}
+			{course && <ToLearnNote {...{
+				course,
+				loading,
+				error,
+				data,
+			}} />}
 		</div>
 	)
 }

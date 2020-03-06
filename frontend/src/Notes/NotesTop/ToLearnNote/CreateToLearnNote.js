@@ -28,6 +28,7 @@ const CreateToLearnNote = ({ course }) => {
 
 	const setActiveStyle = {
 		border: '0.1em solid lightgray',
+		cursor: 'pointer',
 	}
 
 	return !active

@@ -6,7 +6,6 @@ const Course = ({ name, id }) => {
 	const match = useRouteMatch()
 
 	const style = {
-		backgroundColor: 'lightgray',
 		padding: '0.1em',
 		border: 'solid',
 		margin: '0.3em',
@@ -17,7 +16,11 @@ const Course = ({ name, id }) => {
 
 	if (name === '') return null
 	return (
-		<div style={style} onClick={() => history.push(`${match.url}/c${id}`)}>
+		<div
+			className='sidebar-course'
+			style={style}
+			onClick={() => history.push(`${match.url}/c${id}`)}
+		>
 			{name}
 		</div>
 	)

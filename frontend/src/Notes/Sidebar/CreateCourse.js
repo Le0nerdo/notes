@@ -22,7 +22,6 @@ const CreateCourse = ({ subject }) => {
 
 	const style = {
 		color: 'blue',
-		backgroundColor: 'lightgray',
 		padding: '0.1em',
 		border: 'solid',
 		margin: '0.3em',
@@ -43,6 +42,7 @@ const CreateCourse = ({ subject }) => {
 
 	return !active
 		? <div><button
+			className='sidebar-course'
 			style={{ ...style, cursor: 'pointer' }}
 			onClick={() => setActive(true)}
 		>New Course</button></div>

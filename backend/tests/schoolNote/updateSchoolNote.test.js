@@ -36,7 +36,7 @@ describe('updateSchoolNote (mutation)', () => {
 		] }))
 
 		const { query } = createTestClient(server)
-		const updatedSchoolNote = { id: 1, header: 'Testheader', content: 'test' }
+		const updatedSchoolNote = { id: 1, header: 'Testheader', content: 'test', courses: [1,2] }
 		const { data, errors } =  await query({ query: UPDATE_SCHOOL_NOTE, variables: { updatedSchoolNote } })
 
 		expect(data.updateSchoolNote).not.toBe(null)
@@ -60,7 +60,7 @@ describe('updateSchoolNote (mutation)', () => {
 		db.updateSchoolNote = mockFunktion
 
 		const { query } = createTestClient(server)
-		const updatedSchoolNote = { id: 1, header: 'Testheader', content: 'test' }
+		const updatedSchoolNote = { id: 1, header: 'Testheader', content: 'test', courses: [1, 2] }
 		const { data, errors } =  await query({ query: UPDATE_SCHOOL_NOTE, variables: { updatedSchoolNote } })
 
 		expect(data.updateSchoolNote).toBe(null)
@@ -75,7 +75,7 @@ describe('updateSchoolNote (mutation)', () => {
 		db.updateSchoolNote = jest.fn(() => ({ rows: [] }))
 
 		const  { query } = createTestClient(server)
-		const updatedSchoolNote = { id: 1, header: 'Testheader', content: 'test' }
+		const updatedSchoolNote = { id: 1, header: 'Testheader', content: 'test', courses: [1, 2] }
 		const { data, errors } =  await query({ query: UPDATE_SCHOOL_NOTE, variables: { updatedSchoolNote } })
 
 		expect(errors).toBeDefined()

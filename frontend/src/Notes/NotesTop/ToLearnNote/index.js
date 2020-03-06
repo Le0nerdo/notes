@@ -1,14 +1,8 @@
 import React from 'react'
-import { useQuery } from 'react-apollo'
-import { TO_LEARN_NOTE } from '../../requests'
 import CreateToLearnNote from './CreateToLearnNote'
 import ViewToLearnNote from './ViewToLearnNote'
 
-const ToLearnNote = ({ course }) => {
-	const { loading, error, data } = useQuery(TO_LEARN_NOTE,
-		{ variables: { course: course.id } },
-	)
-
+const ToLearnNote = ({ course, loading, error, data }) => {
 	if (loading) return <div>Loading...</div>
 	if (error) return <div>Error...</div>
 

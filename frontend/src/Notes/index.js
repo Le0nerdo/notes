@@ -22,7 +22,6 @@ const Notes = () => {
 	if (loading) return <div style={style}>Loading...</div>
 
 	if (error) {
-		console.log(error)
 		return <div style={style}>Error!</div>
 	}
 

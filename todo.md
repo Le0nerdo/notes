@@ -1,10 +1,5 @@
 # ToDo
 
-refresh noteslistnotes (createnote problem)
-
-DELETE BUTTON WHEN ToLearnNote problem
-
-make/update frontend
 
 ## backendstuff
 deleteToLearnNote response is not the note

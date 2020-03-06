@@ -35,7 +35,6 @@ const NoteContent = ({ editorState, setEditorState, setEditmode, saveNote }) => 
 
 	const keyBindingFn = (event) => {
 		setEditmode(true)
-		console.log(event.keyCode)
 
 		switch (event.keyCode) {
 			case 49:
