@@ -1,0 +1,14 @@
+backend/build
+backend/node_modules
+backend/test
+backend/.eslintrc.js
+backend/.eslintignore
+backend/.gitignore
+backend/docker-compose.yml
+backend/.env
+backend/.env.example
+
+frontend/build
+frontend/node_modules
+frontend/.eslintrc.js
+frontend/.gitignore

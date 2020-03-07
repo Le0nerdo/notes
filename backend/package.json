@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node src",
+    "start": "node src",
     "watch": "nodemon src",
     "test": "jest --verbose --runInBand",
     "test:watch": "jest --watchAll --verbose --runInBand --detectOpenHandles tests/$1",
-    "createTables": "node db/createTables.js",
+    "createTables": "node src/createTables.js",
     "testQuery": "node testQuery.js"
   },
   "author": "Leo Becker",

@@ -3,30 +3,36 @@
 |:-------:|:-------:|:-------:|:-------:|
 
 ## Idea <sub><sup>([Basic way to acces data](#Basic-way-to-access-data))<sup/></sub>
->A web app that helps to keep and share notes for studyin. Also has emphasis on "to learn" notes.  
+>A web app that helps to keep and share* notes for studyin. Also has emphasis on "to learn" notes.  
 If I have enough time I will test to make a variation for games.
 
+*will maybe be implemented
 ## Architecture
 * Frontend: [React](https://reactjs.org/) +  [Apollo Client](https://github.com/apollographql/apollo-client)
 * Backend: [Node.js](https://nodejs.org/en/) + [Apollo Server](https://github.com/apollographql/apollo-server)
 * Database: [PostgreSQL](https://www.postgresql.org/)
 * Run environment: [Docker](https://www.docker.com/)
 
-## Commands
-### Development
-#### Database:
+## Production
 ```sh
-# will change
-$ cd db
+#create .env file
+docker-compose up -d
+```
+
+## Development
+### Database:
+```sh
+$ cd backend
 $ docker-compose up -d
 ```
-#### Backend:
+### Backend:
 ```sh
 $ cd backend
 $ npm i
+# create .env file
 $ npm run watch
 ```
-#### Frontend:
+### Frontend:
 ```sh
 $ cd frontend
 $ npm i
@@ -63,7 +69,7 @@ User----+School*+ToLearn
                 |       +Note1
                 |       +Note2
                 |
-                +Shared
+                +Shared*
 ```
 *will maybe be implemented
 ## Useful links
