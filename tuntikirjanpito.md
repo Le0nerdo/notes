@@ -38,3 +38,7 @@
 |5.3.-6.3.	|3		|Made frontend ready to be merged to master
 |6.3.-7.3.	|5		|Added dockerfiles for production
 |7.3.		|2		|Configuring portainer and docker hub
+|8.3.-13.3. |2		|Optimizing dockerimage
+|10.3.-13.3.|4		|Making guide to homepage
+
+### yht: 177

@@ -1,5 +1,5 @@
 # Notes
-|no web page yet|no guide yet|[ToDo](../master/todo.md)|[tuntikirjanpito](../master/tuntikirjanpito.md)
+|[Web page](http://kaapo.ddns.net:4040/)|[Guide](http://kaapo.ddns.net:4040/)|[ToDo](../master/todo.md)|[tuntikirjanpito](../master/tuntikirjanpito.md)
 |:-------:|:-------:|:-------:|:-------:|
 
 ## Idea <sub><sup>([Basic way to acces data](#Basic-way-to-access-data))<sup/></sub>
