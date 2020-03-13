@@ -40,5 +40,6 @@
 |7.3.		|2		|Configuring portainer and docker hub
 |8.3.-13.3. |2		|Optimizing dockerimage
 |10.3.-13.3.|4		|Making guide to homepage
+|13.3.-14.3.|1		|Fixed headerstyle and added disclaimers
 
-### yht: 177
+### yht: 178

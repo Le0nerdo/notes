@@ -7,6 +7,7 @@ import Login from './Login'
 import Notes from './Notes'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
+import CookieDisclaimer from './components/CookieDisclaimer'
 
 const IS_LOGGED_IN = gql`
 	query IsLoggedIn {
@@ -32,6 +33,7 @@ const App = () => {
 				</Route>
 				<Redirect to='/' />
 			</Switch>
+			<CookieDisclaimer />
 		</BrowserRouter>
 	)
 }

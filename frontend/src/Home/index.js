@@ -7,24 +7,35 @@ const Home = () => {
 		textAlign: 'center',
 		backgroundColor: 'lightgray',
 		gridArea: 'c',
-		overflow: 'scroll',
+		overflowX: 'hidden',
+		overflowY: 'scroll',
+	}
+
+	const disclaimerStyle = {
+		color: 'FireBrick',
 	}
 
 	return (
 		<div style={style}>
-			<h1>Create and edit notes</h1>
+			<div style={disclaimerStyle}>
+				<p><b>We do not promise that your notes are kept safe. Also we do not support mobile devices.</b></p>
+			</div>
+			<h1 className='guide-header'>Create and edit notes</h1>
 			<img
-				src="/GuideNote.png"
-				alt="Guide for note editing"
+				className='guide-image'
+				src='/GuideNote.png'
+				alt='Guide for note editing'
 			/>
-			<h1>Manage them</h1>
+			<h1 className='guide-header'>Manage them</h1>
 			<img
-				src="/GuideSelection.png"
+				className='guide-image'
+				src='/GuideSelection.png'
 				alt='Guide for note managment'
 			/>
-			<h1>Start now</h1>
+			<h1 className='guide-header'>Start now</h1>
 			<img
-				src="/GuideLogin.png"
+				className='guide-image'
+				src='/GuideLogin.png'
 				alt='Guide for login/creating account'
 			/>
 		</div>

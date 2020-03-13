@@ -1,7 +1,7 @@
-img {
+.guide-image {
 	width: 80vw;
 }
 
-h1 {
+.guide-header {
 	font-size: 10vh;
 }
