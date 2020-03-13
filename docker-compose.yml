@@ -8,8 +8,6 @@ services:
             POSTGRES_USER: ${DB_USER}
         image: postgres:9.6-alpine
         mem_limit: 32M
-        volumes:
-            - ./data:/var/lib/postgresql/data
         ports:
             - ${DB_PORT}:5432
     notes:
