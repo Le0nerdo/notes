@@ -33,9 +33,12 @@ const NotePreview = ({ header, subjects, courses, id }) => {
 	}
 
 	const redirect = () => {
-		const target = match.url.split('/').length === 2
+		const depth = match.url.split('/').length
+		const target = depth === 2
 			? `/n/n${id}`
-			: `n${id}`
+			: depth === 3
+				? `${match.url}/n${id}`
+				: `${match.url.split('/').slice(0, -1).join('/')}/n${id}`
 		history.push(target)
 	}
 

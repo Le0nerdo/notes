@@ -41,5 +41,6 @@
 |8.3.-13.3. |2		|Optimizing dockerimage
 |10.3.-13.3.|4		|Making guide to homepage
 |13.3.-14.3.|1		|Fixed headerstyle and added disclaimers
+|13.4.		|1		|Fixed note selection and added it to the guide
 
-### yht: 178
+### yht: 179

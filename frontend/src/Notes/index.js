@@ -34,6 +34,9 @@ const Notes = () => {
 					<Route exact path={`${match.url}`}>
 						<NoteList />
 					</Route>
+					<Route path={`${match.url}/s:sid/n:id`}>
+						<Note />
+					</Route>
 					<Route path={`${match.url}/shared`}>
 						<NoteList shared />
 					</Route>
