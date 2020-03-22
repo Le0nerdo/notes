@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks'
 import { useHistory } from 'react-router-dom'
@@ -8,10 +8,14 @@ import gql from 'graphql-tag'
 
 const Header = () => {
 	const { data: { isLoggedIn } } = useQuery(IS_LOGGED_IN)
-	const { data, loading, error } = useQuery(ME)
+	const { data, loading, error, refetch } = useQuery(ME)
 	const [toggleSidebar] = useMutation(gql`mutation { toggleSidebar @client}`)
 	const history = useHistory()
 	const client = useApolloClient()
+
+	useEffect(() => {
+		refetch()
+	}, [isLoggedIn, refetch])
 
 	const logout = () => {
 		localStorage.clear()
