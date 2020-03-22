@@ -31,15 +31,6 @@ const Notes = () => {
 			<div style={style}>
 				<NotesTop />
 				<Switch>
-					<Route exact path={`${match.url}`}>
-						<NoteList />
-					</Route>
-					<Route path={`${match.url}/s:sid/n:id`}>
-						<Note />
-					</Route>
-					<Route path={`${match.url}/shared`}>
-						<NoteList shared />
-					</Route>
 					<Route path={`${match.url}/s:sid/c:id/newNote`}>
 						<CreateNote />
 					</Route>
@@ -48,6 +39,15 @@ const Notes = () => {
 					</Route>
 					<Route path={`${match.url}/newNote`}>
 						<CreateNote />
+					</Route>
+					<Route exact path={`${match.url}`}>
+						<NoteList />
+					</Route>
+					<Route path={`${match.url}/s:sid/n:id`}>
+						<Note />
+					</Route>
+					<Route path={`${match.url}/shared`}>
+						<NoteList shared />
 					</Route>
 					<Route path={`${match.url}/s:sid/c:id`}>
 						<NoteList course />
