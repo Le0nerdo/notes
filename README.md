@@ -1,6 +1,6 @@
 # Notes
 |[Guide](http://kaapo.ddns.net:4040/)|[ToDo](../master/todo.md)|[tuntikirjanpito](../master/tuntikirjanpito.md)
-|:-------:|:-------:|:-------:|:-------:|
+|:-------:|:-------:|:-------:|
 
 ## Idea <sub><sup>([Basic way to acces data](#Basic-way-to-access-data))<sup/></sub>
 > This was made as a school project. I wanted to test GrapghQL for not really any other reason than to test it.
