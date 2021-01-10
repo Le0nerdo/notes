@@ -1,12 +1,12 @@
 # Notes
-|[Web page](http://kaapo.ddns.net:4040/)|[Guide](http://kaapo.ddns.net:4040/)|[ToDo](../master/todo.md)|[tuntikirjanpito](../master/tuntikirjanpito.md)
+|[Guide](http://kaapo.ddns.net:4040/)|[ToDo](../master/todo.md)|[tuntikirjanpito](../master/tuntikirjanpito.md)
 |:-------:|:-------:|:-------:|:-------:|
 
 ## Idea <sub><sup>([Basic way to acces data](#Basic-way-to-access-data))<sup/></sub>
->A web app that helps to keep and share* notes for studyin. Also has emphasis on "to learn" notes.  
+> This was made as a school project. I wanted to test GrapghQL for not really any other reason than to test it.
+A web app that helps to keep and share* notes for studyin. Also has emphasis on "to learn" notes.  
 If I have enough time I will test to make a variation for games.
 
-*will maybe be implemented
 ## Architecture
 * Frontend: [React](https://reactjs.org/) +  [Apollo Client](https://github.com/apollographql/apollo-client)
 * Backend: [Node.js](https://nodejs.org/en/) + [Apollo Server](https://github.com/apollographql/apollo-server)
