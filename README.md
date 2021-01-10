@@ -5,7 +5,7 @@
 ## Idea <sub><sup>([Basic way to acces data](#Basic-way-to-access-data))<sup/></sub>
 > This was made as a school project. I wanted to test GrapghQL for not really any other reason than to test it.
 
-A web app that helps to keep and share* notes for studyin. Also has emphasis on "to learn" notes.  
+A web app that helps to keep and share notes for studyin. Also has emphasis on "to learn" notes.  
 If I have enough time I will test to make a variation for games.
 
 ## Architecture
